@@ -1,0 +1,9 @@
+
+    <div class="example-input">
+      <input placeholder="{{placeholder}}" nz-input [(ngModel)]="inputValue" [nzAutocomplete]="auto" />
+      <nz-autocomplete #auto [compareWith]="compareFun">
+        <nz-auto-option *ngFor="let option of elements" [nzValue]="option" [nzLabel]="option.label">
+          {{ option.label }}
+        </nz-auto-option>
+      </nz-autocomplete>
+    </div>

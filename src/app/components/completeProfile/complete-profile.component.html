@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-lg-start">
+  <p class="mr-3">Are you ESN</p>
+  <label nz-checkbox [(ngModel)]="checked">Yes</label>
+</div>
+
+    <nz-collapse nzAccordion>
+
+<!--      <nz-collapse-panel (click)="dispaly()" *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active">-->
+<!--        <input type="text" placeholder="text1">-->
+<!--      </nz-collapse-panel>-->
+      <nz-collapse-panel [nzHeader]="'Coordonnées personnel'">
+      <form [formGroup]="profile" class="form-group">
+        <input *ngIf="!checked" class="form-control m-2" formControlName="nomEsn" [(ngModel)]="esn.nonEsn" type="text" placeholder="* Nom ESN">
+        <div *ngIf="nomEsn?.invalid">
+          <div class="alert alert-danger m-2" *ngIf="nomEsn?.touched && nomEsn?.errors?.required" >
+            champ nom ESN est obligatoire
+          </div>
+        </div>
+        <input *ngIf="checked" class="form-control m-2" formControlName="nom"  [(ngModel)]="prestataire.nom" type="text" placeholder="* Nom">
+          <div *ngIf="nom?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="nom?.touched && nom?.errors?.required" >
+              champ nom est obligatoire
+            </div>
+          </div>
+        <input *ngIf="checked" class="form-control m-2" formControlName="prenom" [(ngModel)]="prestataire.prenom" type="text" placeholder="* Prenom">
+          <div *ngIf="prenom?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="prenom?.touched && prenom?.errors?.required" >
+              champ prenom est obligatoire
+            </div>
+          </div>
+        <input class="form-control m-2" formControlName="email" [(ngModel)]="prestataire.email" [(ngModel)]="esn.email" type="email" placeholder="* Email">
+          <div *ngIf="email?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="email?.touched && email?.errors?.required" >
+              champ email est obligatoire
+            </div>
+            <div class="alert alert-danger m-2" *ngIf="email?.touched && !email?.errors?.required" >
+              champ email doit respecter la forme 'xxx@yy.zz'
+            </div>
+          </div>
+        <input *ngIf="checked" class="form-control m-2" formControlName="profession" [(ngModel)]="prestataire.profession" type="text" placeholder="* Profession">
+          <div *ngIf="profession?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="profession?.touched && profession?.errors?.required" >
+              champ profession est obligatoire
+            </div>
+          </div>
+        <input class="form-control m-2" formControlName="rib" type="text" [(ngModel)]="esn.rib" [(ngModel)]="prestataire.rib" placeholder="* RIB 20">
+          <div *ngIf="rib?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="rib?.touched && rib?.errors?.required" >
+              champ rib est obligatoire
+            </div>
+            <div class="alert alert-danger m-2" *ngIf="rib?.touched && !rib?.errors?.required" >
+              champ rib doit avoir 20 chiffres
+            </div>
+          </div>
+        <input class="form-control m-2" formControlName="iban" type="text" [(ngModel)]="esn.iban" [(ngModel)]="prestataire.iban" placeholder="* IBAN">
+          <div *ngIf="iban?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="iban?.touched && iban?.errors?.required" >
+              champ iban est obligatoire
+            </div>
+            <div class="alert alert-danger m-2" *ngIf="iban?.touched && !iban?.errors?.required" >
+              champ iban doit avoir deux lettres et 22 chiffres
+            </div>
+          </div>
+        <input class="form-control m-2" formControlName="lieu" [(ngModel)]="esn.lieu" [(ngModel)]="prestataire.lieu" type="text" placeholder="* Lieu">
+          <div *ngIf="lieu?.invalid">
+            <div class="alert alert-danger m-2" *ngIf="lieu?.touched && lieu?.errors?.required" >
+              champ lieu est obligatoire
+            </div>
+          </div>
+
+           <button *ngIf="checked" class="btn ant-btn-primary float-right rounded-circle"  (click)="submitProfileEsn()">SUBMIT</button>
+
+      </form>
+      </nz-collapse-panel>
+
+      <nz-collapse  >
+        <nz-collapse-panel *ngIf="!checked" [nzDisabled]="checked"  [nzHeader]="'Remplir votre cv'">
+
+          <nz-collapse>
+              <nz-collapse-panel  [nzHeader]="'Education'" >
+                <i class=" float-right" [nzSpin]="true" (click)="addSouSectionEducation()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
+
+                <div class="m-3" >
+                  <nz-collapse>
+
+                    <nz-collapse-panel   *ngFor="let p of nomberSousSectionEducation;let i = index"  [nzHeader]="'Education'">
+                      <form  [formGroup]="education" class="form-group" >
+                      <input (click)="show[i]=true"  placeholder="Nom ecole"  name="{{i}}" id="{{i}}" formControlName="nomEcole" nz-input [(ngModel)]="tabEcole[i]" />
+                        <div *ngIf="nomEcole?.invalid && show[i] ">
+                          <div class="alert alert-danger m-2" *ngIf="nomEcole?.touched && nomEcole?.errors?.required " >
+                            champ nom ecole est obligatoire
+                          </div>
+                        </div>
+                      <!------------------------------------------->
+
+                      <input placeholder="Type diplome" formControlName="typeDiplome" nz-input [(ngModel)]="tabTypeDiplome[i]" [nzAutocomplete]="auto" />
+                      <nz-autocomplete #auto [compareWith]="compareFun">
+                        <nz-auto-option *ngFor="let option of options" [nzValue]="option" [nzLabel]="option.label">
+                          {{ option.label }}
+                        </nz-auto-option>
+                      </nz-autocomplete>
+                        <div *ngIf="typediplome?.invalid && show[i]">
+                          <div class="alert alert-danger m-2" *ngIf="typediplome?.touched && typediplome?.errors?.required" >
+                            champ type diplome est obligatoire
+                          </div>
+                        </div>
+                      <!------------------------------------------->
+                      <nz-range-picker formControlName="dureeEcucation" [(ngModel)]="tabDateDebutAndFin[i]" [nzFormat]="dateFormat"></nz-range-picker>
+                        <div *ngIf="dureeEcucation?.invalid && show[i]">
+                          <div class="alert alert-danger m-2" *ngIf="dureeEcucation?.touched && dureeEcucation?.errors?.required" >
+                            champ duree ecucation est obligatoire
+                          </div>
+                        </div>
+                      </form>
+                    </nz-collapse-panel>
+
+                  </nz-collapse>
+                </div>
+              </nz-collapse-panel>
+          </nz-collapse>
+
+          <nz-collapse>
+            <nz-collapse-panel  [nzHeader]="'Experience'" >
+              <i class=" float-right" [nzSpin]="true" (click)="addSouSectionExperience()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
+              <div class="m-3" >
+                <nz-collapse>
+                  <nz-collapse-panel *ngFor="let p of nomberSousSectionExperience;let i = index" [nzHeader]="'Experience'">
+                    <input placeholder="Nom Societe" nz-input [(ngModel)]="tabNomSociete[i]" />
+                    <input placeholder="Titre de poste" nz-input [(ngModel)]="tabTitrePoste[i]" />
+                    <nz-range-picker [(ngModel)]="tabDateDebutAndFinPoste[i]" [nzFormat]="dateFormat"></nz-range-picker>
+                    <textarea nz-input placeholder="Ajouter une brieve descrption" [(ngModel)]="tabDescriptionPoste[i]" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                  </nz-collapse-panel>
+                </nz-collapse>
+              </div>
+            </nz-collapse-panel>
+          </nz-collapse>
+      </nz-collapse-panel>
+      </nz-collapse>
+      <button *ngIf="!checked" class="btn btn-primary float-right rounded-circle mt-2" (click)="submitProfilePrestataire()">SUBMIT</button>
+
+    </nz-collapse>

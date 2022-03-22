@@ -1,0 +1,116 @@
+<nav *ngIf="!keykcloak.kc.authenticated" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" (click)="onLogin()">Login</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+<nz-layout *ngIf="keykcloak.kc.authenticated" class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Octachlorodirhenate%28III%29-3D-balls.png/220px-Octachlorodirhenate%28III%29-3D-balls.png" alt="logo">
+        <h1>Prestalink</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+        <ul >
+          <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+
+           <a  routerLink="/appeloffre">Appel Offres</a>
+          </li>
+<!--          <li [nzDisabled] nz-menu-item nzMatchRouter>-->
+<!--            <a routerLink="/completeProfile">Post</a>-->
+<!--          </li>-->
+        </ul>
+      </li>
+
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        <span class="float-lg-right mr-3">
+          <app-nz-demo-dropdown-placement></app-nz-demo-dropdown-placement>
+        </span>
+      </div>
+
+    </nz-header>
+    <nz-content>
+
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer class="ml-auto mr-auto">Ant Design ©2022 Implement By Inetum</nz-footer>
+  </nz-layout>
+
+</nz-layout>
+<!--.....................-->
+<!--<nz-layout class="layout">-->
+<!--  <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">-->
+<!--    <div class="logo"></div>-->
+<!--    <ul nz-menu nzTheme="dark" nzMode="inline">-->
+<!--      <li nz-menu-item>-->
+<!--        <i nz-icon nzType="user"></i>-->
+<!--        <span>nav 1</span>-->
+<!--      </li>-->
+<!--      <li nz-menu-item>-->
+<!--        <i nz-icon nzType="video-camera"></i>-->
+<!--        <span>nav 2</span>-->
+<!--      </li>-->
+<!--      <li nz-menu-item>-->
+<!--        <i nz-icon nzType="upload"></i>-->
+<!--        <span>nav 3</span>-->
+<!--      </li>-->
+<!--      <li nz-menu-item>-->
+<!--        <i nz-icon nzType="user"></i>-->
+<!--        <span>nav 4</span>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </nz-sider>-->
+<!--  <nz-layout>-->
+<!--    <nz-header></nz-header>-->
+<!--    <nz-content>-->
+<!--      <div class="inner-content">-->
+<!--      </div>-->
+<!--    </nz-content>-->
+<!--    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>-->
+<!--  </nz-layout>-->
+<!--</nz-layout>-->
