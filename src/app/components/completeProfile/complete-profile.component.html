@@ -10,19 +10,19 @@
 <!--      </nz-collapse-panel>-->
       <nz-collapse-panel [nzHeader]="'Coordonnées personnel'">
       <form [formGroup]="profile" class="form-group">
-        <input *ngIf="!checked" class="form-control m-2" formControlName="nomEsn" [(ngModel)]="esn.nonEsn" type="text" placeholder="* Nom ESN">
+        <input *ngIf="checked" class="form-control m-2" formControlName="nomEsn" [(ngModel)]="esn.nonEsn" type="text" placeholder="* Nom ESN">
         <div *ngIf="nomEsn?.invalid">
           <div class="alert alert-danger m-2" *ngIf="nomEsn?.touched && nomEsn?.errors?.required" >
             champ nom ESN est obligatoire
           </div>
         </div>
-        <input *ngIf="checked" class="form-control m-2" formControlName="nom"  [(ngModel)]="prestataire.nom" type="text" placeholder="* Nom">
+        <input *ngIf="!checked" class="form-control m-2" formControlName="nom"  [(ngModel)]="prestataire.nom" type="text" placeholder="* Nom">
           <div *ngIf="nom?.invalid">
             <div class="alert alert-danger m-2" *ngIf="nom?.touched && nom?.errors?.required" >
               champ nom est obligatoire
             </div>
           </div>
-        <input *ngIf="checked" class="form-control m-2" formControlName="prenom" [(ngModel)]="prestataire.prenom" type="text" placeholder="* Prenom">
+        <input *ngIf="!checked" class="form-control m-2" formControlName="prenom" [(ngModel)]="prestataire.prenom" type="text" placeholder="* Prenom">
           <div *ngIf="prenom?.invalid">
             <div class="alert alert-danger m-2" *ngIf="prenom?.touched && prenom?.errors?.required" >
               champ prenom est obligatoire
@@ -37,7 +37,7 @@
               champ email doit respecter la forme 'xxx@yy.zz'
             </div>
           </div>
-        <input *ngIf="checked" class="form-control m-2" formControlName="profession" [(ngModel)]="prestataire.profession" type="text" placeholder="* Profession">
+        <input *ngIf="!checked" class="form-control m-2" formControlName="profession" [(ngModel)]="prestataire.profession" type="text" placeholder="* Profession">
           <div *ngIf="profession?.invalid">
             <div class="alert alert-danger m-2" *ngIf="profession?.touched && profession?.errors?.required" >
               champ profession est obligatoire

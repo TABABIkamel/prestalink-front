@@ -14,10 +14,14 @@ import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
-import { MoadalBasicComponent } from '../../components/moadal-basic/moadal-basic.component';
+import { MoadalBasicComponent } from '../../componentsNgZorro/moadal-basic/moadal-basic.component';
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzButtonModule} from "ng-zorro-antd/button";
-import { CardComponent } from '../../card/card.component';
+import { CardComponent } from '../../components/card/card.component';
+import {NzSwitchModule} from "ng-zorro-antd/switch";
+import {NzCardModule} from "ng-zorro-antd/card";
+import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
+import {NzAvatarModule} from "ng-zorro-antd/avatar";
 
 
 
@@ -35,7 +39,11 @@ import { CardComponent } from '../../card/card.component';
     NzDatePickerModule,
     NzModalModule,
     NzButtonModule,
+    NzSwitchModule,
+    NzCardModule,
+    NzSkeletonModule,
+    NzAvatarModule,
   ],
-  exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent]
+  exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent,CardComponent]
 })
 export class SharedModule { }
