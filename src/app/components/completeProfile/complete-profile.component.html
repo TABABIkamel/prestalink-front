@@ -16,6 +16,10 @@
             champ nom ESN est obligatoire
           </div>
         </div>
+        <input  nz-input class="m-2" formControlName="nom" (change)="selectFile($event)"  type="file" placeholder="* File">
+<!--        <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">-->
+<!--          Upload-->
+<!--        </button>-->
         <input *ngIf="!checked" class="form-control m-2" formControlName="nom"  [(ngModel)]="prestataire.nom" type="text" placeholder="* Nom">
           <div *ngIf="nom?.invalid">
             <div class="alert alert-danger m-2" *ngIf="nom?.touched && nom?.errors?.required" >

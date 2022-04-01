@@ -1,0 +1,33 @@
+
+    <nz-table #basicTable [nzData]="listOfData">
+      <thead>
+        <tr>
+          <th>appel offre</th>
+          <th>name</th>
+          <th>lieu</th>
+          <th>email</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.titreAo }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.lieu }}</td>
+          <td>{{ data.email }}</td>
+          <td *ngIf="isGestionCandidatComponent">
+            <button class="btn btn-success" (click)="accpeterCandidat(data.id)">Accepter</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button class="btn btn-danger" (click)="refuserCandidat(data.id)">Refuser</button>
+            <i (click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;" nzType="eye" nzTheme="outline"></i>
+          </td>
+          <td *ngIf="!isGestionCandidatComponent">
+            <div class="d-flex justify-content-between">
+            <p>{{data.status}}</p>
+            <i (click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;" nzType="eye" nzTheme="outline"></i>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </nz-table>

@@ -1,0 +1,56 @@
+<app-table-basic [isGestionCandidatComponent]="false" (modalData)="getIdCandidat($event)" (isVisibleData)="getIsVisibleValue($event)"></app-table-basic>
+<nz-modal [nzWidth]="900"  [(nzVisible)]="isVisible" nzTitle="CANDIDAT: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <nz-collapse nzAccordion>
+
+      <!--      <nz-collapse-panel (click)="dispaly()" *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active">-->
+      <!--        <input type="text" placeholder="text1">-->
+      <!--      </nz-collapse-panel>-->
+      <nz-collapse-panel [nzActive]="true" [nzHeader]="'Coordonnées personnel'">
+        <form class="form-group" >
+          <input [disabled]="isVisible" value="{{contentModal.name}}"  nz-input />
+          <input [disabled]="isVisible" value="{{contentModal.lieu}}"  nz-input />
+          <input [disabled]="isVisible" value="{{contentModal.email}}"  nz-input />
+        </form>
+      </nz-collapse-panel>
+
+      <nz-collapse  >
+        <nz-collapse-panel [nzActive]="true" [nzHeader]="'Remplir votre cv'">
+
+          <nz-collapse>
+            <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Education'" >
+              <div class="m-3" >
+                <nz-collapse *ngFor="let exp of contentModal.educations ">
+
+                  <nz-collapse-panel [nzActive]="true" [nzHeader]="'Education'">
+                    <form class="form-group" >
+                      <input [disabled]="isVisible" value="{{exp.nomEcole}}"  nz-input />
+                      <input [disabled]="isVisible" value="{{exp.typeDiplome}}"  nz-input />
+                      <nz-range-picker nzDisabled [nzFormat]="dateFormat"></nz-range-picker>
+                    </form>
+                  </nz-collapse-panel>
+                </nz-collapse>
+              </div>
+            </nz-collapse-panel>
+          </nz-collapse>
+
+          <nz-collapse>
+            <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Experience'" >
+              <div class="m-3" >
+                <nz-collapse *ngFor="let exp of contentModal.experiences">
+                  <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experience'">
+                    <input [disabled]="isVisible"value="{{exp.nomSociete}}" nz-input />
+                    <input [disabled]="isVisible" value="{{exp.titrePoste}}" nz-input/>
+                    <nz-range-picker [nzDisabled]="isVisible" [nzDefaultPickerValue]=exp.dateDebut [nzFormat]="dateFormat"></nz-range-picker>
+                    <textarea [disabled]="isVisible" nz-input value="{{exp.descriptionPoste}}" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                  </nz-collapse-panel>
+                </nz-collapse>
+              </div>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-collapse>
+  </ng-container>
+</nz-modal>
+

@@ -1,0 +1,83 @@
+
+    <button nz-button nzType="primary" (click)="open()">Create</button>
+    <nz-drawer
+      [nzBodyStyle]="{ overflow: 'auto' }"
+      [nzMaskClosable]="false"
+      [nzWidth]="720"
+      [nzVisible]="visible"
+      nzTitle="Create"
+      [nzFooter]="footerTpl"
+      (nzOnClose)="close()"
+    >
+      <form nz-form *nzDrawerContent>
+        <div nz-row [nzGutter]="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>TITRE</nz-form-label>
+              <nz-form-control>
+                <input name="titreAo" [(ngModel)]="appelOffre.titreAoDto" nz-input placeholder="titre appel offre " />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>TGM</nz-form-label>
+              <nz-form-control>
+                <nz-input-group  nzAddOnAfter="$">
+                  <input name="tgmAo" [(ngModel)]="appelOffre.tjmAoDto" type="number" nz-input placeholder="please enter tgm" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>MODALITE</nz-form-label>
+              <nz-form-control>
+                <nz-select name="modaliteAo" [(ngModel)]="appelOffre.modaliteAoDto" ngModel="DISTANCE" nzPlaceHolder="select modality">
+                  <nz-option nzValue="DISTANCE" nzLabel="DISTANCE"></nz-option>
+                  <nz-option nzValue="PRESENTIEL" nzLabel="PRESENTIEL"></nz-option>
+                  <nz-option nzValue="MIXTE" nzLabel="MIXTE"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>LIEU</nz-form-label>
+              <nz-form-control>
+                <input name="lieuAo" [(ngModel)]="appelOffre.lieuAoDto" nz-input placeholder="lieu appel offre " />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>DateTime</nz-form-label>
+              <nz-form-control>
+                <nz-range-picker name="dataAo" [(ngModel)]="dateAo"></nz-range-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="8">
+          <div nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label>Description</nz-form-label>
+              <nz-form-control>
+                <textarea name="descriptionAo" [(ngModel)]="appelOffre.descriptionAoDto" nz-input placeholder="description appel offre" [nzAutosize]="{ minRows: 4, maxRows: 50 }"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+
+      <ng-template #footerTpl>
+        <div style="float: right">
+          <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
+          <button nz-button nzType="primary" (click)="submitAo()">Submit</button>
+        </div>
+      </ng-template>
+    </nz-drawer>

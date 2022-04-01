@@ -7,24 +7,16 @@ import {TestService} from "../../services/test.service";
 })
 export class MoadalBasicComponent {
   @Input() buttonTitle:string="Show Modal";
+  handleOk:any=():void=>{console.log('ok');this.isVisible=false};
+  handleCancel: any=():void=>{console.log("cancel");this.isVisible = false;};
   isVisible = false;
 
   constructor() {}
   modalTitle:string="default title";
   content:string="Content by Default"
+
+
   showModal(): void {
     this.isVisible = true;
   }
-
-  handleOk(): void {
-    console.log('Button ok clicked!');
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
-  }
-
-
 }

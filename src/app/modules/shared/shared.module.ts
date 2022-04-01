@@ -22,11 +22,20 @@ import {NzSwitchModule} from "ng-zorro-antd/switch";
 import {NzCardModule} from "ng-zorro-antd/card";
 import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
+import {NzAlertModule} from "ng-zorro-antd/alert";
+import { TableBasicComponent } from '../../componentsNgZorro/table-basic/table-basic.component';
+import {NzTableModule} from "ng-zorro-antd/table";
+import {NzDividerModule} from "ng-zorro-antd/divider";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import { DrawerCreateComponent } from '../../componentsNgZorro/drawer-create/drawer-create.component';
+import {NzDrawerModule} from "ng-zorro-antd/drawer";
+import {NzInputModule} from "ng-zorro-antd/input";
+import {NzSelectModule} from "ng-zorro-antd/select";
 
 
 
 @NgModule({
-  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent],
+  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -43,7 +52,14 @@ import {NzAvatarModule} from "ng-zorro-antd/avatar";
     NzCardModule,
     NzSkeletonModule,
     NzAvatarModule,
+    NzAlertModule,
+    NzTableModule,
+    NzDividerModule,
+    NzIconModule,
+    NzDrawerModule,
+    NzInputModule,
+    NzSelectModule,
   ],
-  exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent,CardComponent]
+  exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent,CardComponent,TableBasicComponent,DrawerCreateComponent]
 })
 export class SharedModule { }

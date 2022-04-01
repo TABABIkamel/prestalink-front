@@ -5,5 +5,8 @@ export class AppelOffre{
   dateFinAoDto:Date;
   descriptionAoDto:string;
   tjmAoDto:number;
+  lieuAoDto:string;
   modaliteAoDto:string;
+  esnImage:string;
+  esnNom:string;
 }

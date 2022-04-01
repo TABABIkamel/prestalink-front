@@ -6,6 +6,7 @@ import {Esn} from "../../Models/Esn";
 import {CompleteProfileService} from "../../services/complete-profile.service";
 import {Router} from "@angular/router";
 import {KeycloakService} from "../../services/keycloak.service";
+import {Observable} from "rxjs";
 interface Option {
   label: string;
   value: string;
@@ -15,6 +16,47 @@ interface Option {
   templateUrl: './complete-profile.component.html'
 })
 export class CompleteProfileComponent{
+  selectedFiles?: FileList;
+  currentFile: File;
+  progress = 0;
+  message = '';
+  fileInfos?: Observable<any>;
+  formData: FormData = new FormData();
+  selectFile(event: any): void {
+    console.log('yessss')
+
+    this.selectedFiles = event.target.files;
+  }
+  // upload(): void {
+  //   this.progress = 0;
+  //   if (this.selectedFiles) {
+  //     const file: File | null = this.selectedFiles.item(0);
+  //     if (file) {
+  //       this.currentFile = file;
+  //       this.completeProfileService.upload(this.currentFile).subscribe(
+  //         // (event: any) => {
+  //         //   if (event.type === HttpEventType.UploadProgress) {
+  //         //     this.progress = Math.round(100 * event.loaded / event.total);
+  //         //   } else if (event instanceof HttpResponse) {
+  //         //     this.message = event.body.message;
+  //         //     this.fileInfos = this.uploadService.getFiles();
+  //         //   }
+  //         // },
+  //         // (err: any) => {
+  //         //   console.log(err);
+  //         //   this.progress = 0;
+  //         //   if (err.error && err.error.message) {
+  //         //     this.message = err.error.message;
+  //         //   } else {
+  //         //     this.message = 'Could not upload the file!';
+  //         //   }
+  //         //   this.currentFile = undefined;}
+  //       );
+  //     }
+  //     this.selectedFiles = undefined;
+  //   }
+  // }
+  ////
    buttonSectionEducation: boolean=false;
   constructor(private toastr: ToastrService,private completeProfileService: CompleteProfileService,private route:Router,private keycloakService:KeycloakService) {
   }
@@ -104,7 +146,7 @@ export class CompleteProfileComponent{
   async submitProfilePrestataire() {
     await this.remplirEducationTable()
     await this.remplirExperienceTable()
-    this.prestataire.usernamePrestataire=this.keycloakService.getNameAuthenticatedUser();
+    this.prestataire.usernamePrestataire=this.keycloakService.getUsernameAuthenticatedUser();
 
     await this.completeProfileService.completeProfilePrestataire(this.prestataire)
      .subscribe(res=>this.route.navigateByUrl('appeloffre'),error => this.toastr.error('OUPS','you have already completed your profile'))
@@ -112,13 +154,30 @@ export class CompleteProfileComponent{
   }
 
   submitProfileEsn():void{
-    this.completeProfileService.completeProfileEsn(this.esn)
-      .subscribe
-        ((res)=>{
-          console.log(res)
-          this.route.navigateByUrl('appeloffre')
-          }
-        ,(err)=>{console.log(err)})
+    this.progress = 0;
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+      if (file) {
+        this.currentFile = file;
+        console.log(file)
+        this.completeProfileService.completeProfileEsn(this.esn)
+          .subscribe
+          ((res)=>{
+              console.log(res)
+            console.log(res.usernameRepresentant)
+            this.completeProfileService.upload(this.currentFile,res.usernameRepresentant)
+              .subscribe(res=>{
+
+                this.route.navigateByUrl('appeloffre')
+              })
+
+            }
+            ,(err)=>{console.log(err)})
+      }
+    }
+
+    console.log(this.esn)
+
   }
     comp:number=1
   addSouSectionEducation() {

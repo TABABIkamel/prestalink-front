@@ -1,7 +1,7 @@
 
-    <button nz-button nzType="primary" nzGhost ><span>{{buttonTitle}}</span></button>
     <nz-modal [(nzVisible)]="isVisible" nzTitle="{{modalTitle}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <p>{{content}}</p>
+        <nz-alert nzType="warning" nzMessage="{{content}}" nzShowIcon>
+        </nz-alert>
       </ng-container>
     </nz-modal>

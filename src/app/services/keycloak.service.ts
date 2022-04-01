@@ -11,11 +11,13 @@ declare var Keycloak: any;
 export class KeycloakService {
   public kc: KeycloakInstance;
   public isCompleted:boolean=false
+  public isEsn:boolean=false;
   httpOptions = { headers: new HttpHeaders({
       'Content-Type': 'application/json'})}
   constructor(private http: HttpClient,private route:Router) {}
   functionCalledWhenUserIsEsn(res:any){
       if(res) {
+        this.isEsn=true
         console.log('in if 1')
         if (!res?.completed) {
           this.route.navigateByUrl('completeProfile')
@@ -69,8 +71,11 @@ export class KeycloakService {
     this.http.get<Esn>(`http://localhost:8089/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`,this.httpOptions)
       .subscribe((res)=>{this.functionCalledWhenUserIsEsn(res)},(err)=>{this.functionCalledWhenUserIsNotEsn(err)})
   }
-  public getNameAuthenticatedUser(){
+  public getUsernameAuthenticatedUser(){
     return this.kc.tokenParsed?.preferred_username
+  }
+  public getNameAuthenticatedUser(){
+    return this.kc.tokenParsed?.name
   }
   // public getSuppliers(){
   //   return this.http.get("http://localhost:8083/suppliers")
