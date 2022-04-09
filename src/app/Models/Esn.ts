@@ -8,4 +8,6 @@ export class Esn{
   prestataire: boolean
   rib: string
   usernameRepresentant: string
+
+
 }

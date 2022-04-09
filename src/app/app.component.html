@@ -47,15 +47,15 @@
         <ul >
           <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 
-           <a  routerLink="/appeloffre">Appel Offres</a>
+           <a  routerLink="/appeloffre">appel offres</a>
           </li>
           <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 
-            <a  routerLink="/appeloffre/gestionCandidat">vos candidat</a>
+            <a  routerLink="/appeloffre/gestionCandidat">mes candidats</a>
           </li>
           <li *ngIf="keykcloak.isEsn" [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 
-            <a  routerLink="/appeloffre/candidatEvalue">candidat evalue</a>
+            <a  routerLink="/appeloffre/candidatEvalue">candidats evalues</a>
           </li>
           <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 

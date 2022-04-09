@@ -35,8 +35,9 @@ export class KeycloakService {
       console.log('in else 2')
       this.route.navigateByUrl('completeProfile')
     }else {
-      this.route.navigateByUrl('appeloffre')
       this.isCompleted=true
+      this.route.navigateByUrl('appeloffre')
+
     }
   }
   functionCalledWhenUserIsNotEsn(err:any){

@@ -146,13 +146,23 @@ export class CompleteProfileComponent{
   async submitProfilePrestataire() {
     await this.remplirEducationTable()
     await this.remplirExperienceTable()
-    this.prestataire.usernamePrestataire=this.keycloakService.getUsernameAuthenticatedUser();
-
-    await this.completeProfileService.completeProfilePrestataire(this.prestataire)
-     .subscribe(res=>this.route.navigateByUrl('appeloffre'),error => this.toastr.error('OUPS','you have already completed your profile'))
-        console.log(this.prestataire)
+    this.prestataire.usernamePrestataire = this.keycloakService.getUsernameAuthenticatedUser();
+    this.progress = 0;
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+      if (file) {
+        this.currentFile = file;
+        console.log(file)
+        await this.completeProfileService.completeProfilePrestataire(this.prestataire)
+          .subscribe(res => this.completeProfileService.uploadPhotoToPrestataire(this.currentFile,this.prestataire.usernamePrestataire)
+            .subscribe(
+              res=>{this.route.navigateByUrl('appeloffre')
+               window.location.reload()}),
+              error => this.toastr.error('OUPS', 'you have already completed your profile'))
+      }
+      console.log(this.prestataire)
+    }
   }
-
   submitProfileEsn():void{
     this.progress = 0;
     if (this.selectedFiles) {
@@ -165,10 +175,13 @@ export class CompleteProfileComponent{
           ((res)=>{
               console.log(res)
             console.log(res.usernameRepresentant)
-            this.completeProfileService.upload(this.currentFile,res.usernameRepresentant)
+            this.completeProfileService.uploadPhotoToEsn(this.currentFile,res.usernameRepresentant)
               .subscribe(res=>{
-
+                // this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+                // this.route.onSameUrlNavigation = 'reload';
+                window.location.reload()
                 this.route.navigateByUrl('appeloffre')
+
               })
 
             }

@@ -9,4 +9,9 @@ export class AppelOffre{
   modaliteAoDto:string;
   esnImage:string;
   esnNom:string;
+  usernamePrestataires:string[]
+  usernameEsns:string[]
+  esnUsernameRepresentant:string
+  isPostuled:boolean
+  isProprietaire:boolean
 }

@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Candidature} from "../Models/Candidature";
 import {Approval} from "../Models/Approval";
 import {AppelOffre} from "../Models/AppelOffre";
+import {Contrat} from "../Models/Contrat";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AppelOffreService {
     return this.http.get(`${this.uri}allAo`,this.httpOptions)
   }
   Postuler(candidature:Candidature):Observable<Candidature>{
-    return this.http.post<Candidature>(`${this.uri}submit`,candidature,this.httpOptions)
+    return this.http.post<Candidature>(`${this.uri}submit`,candidature)
   }
   getCandidat(usernameRepresentant:string):Observable<any>{
     return this.http.get<any>(`${this.uri}tasks/${usernameRepresentant}`,this.httpOptions)
@@ -34,5 +35,8 @@ export class AppelOffreService {
   }
   getCandidatureByUsernameCandidat(usernameCandidat:string):Observable<any>{
     return this.http.get<any>(`${this.uri}getCandidatureByUsernameCandidate/${usernameCandidat}`,this.httpOptions)
+  }
+  generateContract(contrat:Contrat):Observable<any>{
+    return this.http.post(`${this.uri}generateContrat`,contrat,this.httpOptions)
   }
 }

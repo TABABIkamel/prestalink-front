@@ -3,6 +3,7 @@ import {AppelOffreService} from "../../services/appel-offre.service";
 import {Approval} from "../../Models/Approval";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {Contrat} from "../../Models/Contrat";
 
 interface Person {
   key: string;
@@ -19,13 +20,14 @@ export class TableBasicComponent {
   @Output() isVisibleData = new EventEmitter<boolean>();
   @Output() modalData = new EventEmitter<any>();
   @Input() isGestionCandidatComponent:boolean;
+  contract:Contrat=new Contrat();
   listOfData: any[] = [];
-  isVisible=true
+  isVisible=false
   approval:Approval=new Approval();
   constructor(private appelOffreService:AppelOffreService,private toastr: ToastrService,private route:Router) {
   }
   showModal(id:any) {
-    this.isVisibleData.emit(this.isVisible)
+    this.isVisibleData.emit(true)
     this.modalData.emit(id);
   }
   refuserCandidat(id:string){
@@ -43,5 +45,18 @@ export class TableBasicComponent {
       this.route.navigateByUrl('gestionCandidat')
       this.toastr.success('Success','candidat a été accepté')
     })
+  }
+
+  handleCancel() {
+    this.isVisible=false
+  }
+  handleOk() {
+    console.log(this.contract)
+    this.appelOffreService.generateContract(this.contract).subscribe(res=>{console.log(res)},err=>{console.log(err)})
+    this.isVisible=false
+  }
+
+  showContratModal() {
+    this.isVisible=true;
   }
 }

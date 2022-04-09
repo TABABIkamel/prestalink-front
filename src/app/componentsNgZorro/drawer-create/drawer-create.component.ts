@@ -3,6 +3,7 @@ import {Esn} from "../../Models/Esn";
 import {AppelOffre} from "../../Models/AppelOffre";
 import {AppelOffreService} from "../../services/appel-offre.service";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-drawer-create',
@@ -12,7 +13,7 @@ export class DrawerCreateComponent {
   appelOffre:AppelOffre=new AppelOffre();
   visible = false;
   dateAo: Date[];
-constructor(private appelOffreService:AppelOffreService,private toastr: ToastrService) {
+constructor(private appelOffreService:AppelOffreService,private toastr: ToastrService,private route:Router) {
 }
   open(): void {
     this.visible = true;
@@ -30,6 +31,9 @@ constructor(private appelOffreService:AppelOffreService,private toastr: ToastrSe
       this.appelOffre=new AppelOffre()
       this.dateAo=[new Date(),new Date()]
       this.toastr.success("congratulation","appel offre a été crée")
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.route.onSameUrlNavigation = 'reload';
+      this.route.navigateByUrl('appeloffre')
     },(error => {
       this.toastr.error("OUPS","error has occurred")
     }))

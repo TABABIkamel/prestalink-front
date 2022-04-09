@@ -10,7 +10,7 @@ export class MoadalBasicComponent {
   handleOk:any=():void=>{console.log('ok');this.isVisible=false};
   handleCancel: any=():void=>{console.log("cancel");this.isVisible = false;};
   isVisible = false;
-
+  a:number=1;
   constructor() {}
   modalTitle:string="default title";
   content:string="Content by Default"

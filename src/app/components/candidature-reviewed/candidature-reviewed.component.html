@@ -1,5 +1,5 @@
 <app-table-basic [isGestionCandidatComponent]="false" (modalData)="getIdCandidat($event)" (isVisibleData)="getIsVisibleValue($event)"></app-table-basic>
-<nz-modal [nzWidth]="900"  [(nzVisible)]="isVisible" nzTitle="CANDIDAT: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [nzWidth]="900"  [(nzVisible)]="isVisible" nzTitle="Candidat: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <nz-collapse nzAccordion>
 
@@ -14,8 +14,8 @@
         </form>
       </nz-collapse-panel>
 
-      <nz-collapse  >
-        <nz-collapse-panel [nzActive]="true" [nzHeader]="'Remplir votre cv'">
+      <nz-collapse *ngIf="contentModal.educations" >
+        <nz-collapse-panel [nzActive]="true" [nzHeader]="'Parcours académique et professionnel'">
 
           <nz-collapse>
             <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Education'" >
@@ -34,7 +34,7 @@
             </nz-collapse-panel>
           </nz-collapse>
 
-          <nz-collapse>
+          <nz-collapse *ngIf="contentModal.experiences">
             <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Experience'" >
               <div class="m-3" >
                 <nz-collapse *ngFor="let exp of contentModal.experiences">

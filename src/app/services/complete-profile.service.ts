@@ -24,10 +24,19 @@ export class CompleteProfileService {
     return this.http.post<Prestataire>(`${this.uri}completeProfilePrestataire`,prestataire,this.httpOptions)
   }
 
-  upload(file: File,username:string): Observable<HttpEvent<any>> {
+  uploadPhotoToEsn(file: File,username:string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     const req = new HttpRequest('POST', `${this.uri}setPhotoToEsn/${username}`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+  uploadPhotoToPrestataire(file: File,username:string): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.uri}setPhotoToPrestataire/${username}`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

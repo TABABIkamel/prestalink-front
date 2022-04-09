@@ -1,5 +1,5 @@
 <app-table-basic [isGestionCandidatComponent]="true" (modalData)="getIdCandidat($event)" (isVisibleData)="getIsVisibleValue($event)"></app-table-basic>
-<nz-modal [nzWidth]="900"  [(nzVisible)]="isVisible" nzTitle="CANDIDAT: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [nzWidth]="900" style="color: #0088cc"  [(nzVisible)]="isVisible" nzTitle="Candidat: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <nz-collapse nzAccordion>
 
@@ -14,8 +14,8 @@
         </form>
       </nz-collapse-panel>
 
-      <nz-collapse  >
-        <nz-collapse-panel [nzActive]="true" [nzHeader]="'Remplir votre cv'">
+      <nz-collapse *ngIf="contentModal.educations" >
+        <nz-collapse-panel [nzActive]="true" [nzHeader]="'parcours académique et professionnel'">
 
           <nz-collapse>
             <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Education'" >
@@ -24,9 +24,9 @@
 
                   <nz-collapse-panel [nzActive]="true" [nzHeader]="'Education'">
                     <form class="form-group" >
-                      <div class="d-flex justify-content-center">
-                        <p class="m-3"><b>date debut:</b> {{exp.dateDebut | date}}</p>
-                        <p class="m-3"><b>date debut:</b> {{exp.dateFin | date}}</p>
+                      <div class="d-flex justify-content-around">
+                        <p class="m-3 "><b>date debut:</b> {{exp.dateDebut | date}}</p>
+                        <p class="m-3 "><b>date fin:</b> {{exp.dateFin | date}}</p>
                       </div>
                       <input [disabled]="isVisible" value="{{exp.nomEcole}}"  nz-input />
                       <input [disabled]="isVisible" value="{{exp.typeDiplome}}"  nz-input />
@@ -38,14 +38,14 @@
             </nz-collapse-panel>
           </nz-collapse>
 
-          <nz-collapse>
+          <nz-collapse *ngIf="contentModal.experiences">
             <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Experience'" >
               <div class="m-3" >
                 <nz-collapse *ngFor="let exp of contentModal.experiences">
                   <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experience'">
-                    <div class="d-flex justify-content-center">
-                      <p class="m-3"><b>date debut:</b> {{exp.dateDebut | date}}</p>
-                      <p class="m-3"><b>date debut:</b> {{exp.dateFin | date}}</p>
+                    <div class="d-flex justify-content-around">
+                      <p class="m-3 "><b>date debut:</b> {{exp.dateDebut | date}}</p>
+                      <p class="m-3 "><b>date fin:</b> {{exp.dateFin | date}}</p>
                     </div>
                     <input [disabled]="isVisible"value="{{exp.nomSociete}}" nz-input />
                     <input [disabled]="isVisible" value="{{exp.titrePoste}}" nz-input/>
