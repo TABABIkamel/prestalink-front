@@ -31,35 +31,37 @@ import { DrawerCreateComponent } from '../../componentsNgZorro/drawer-create/dra
 import {NzDrawerModule} from "ng-zorro-antd/drawer";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 
 
 @NgModule({
   declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent],
-  imports: [
-    CommonModule,
-    SharedRoutingModule,
-    NzDropDownModule,
-    NzAutocompleteModule,
-    NzGridModule,
-    NzFormModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NzDatePickerModule,
-    NzModalModule,
-    NzButtonModule,
-    NzSwitchModule,
-    NzCardModule,
-    NzSkeletonModule,
-    NzAvatarModule,
-    NzAlertModule,
-    NzTableModule,
-    NzDividerModule,
-    NzIconModule,
-    NzDrawerModule,
-    NzInputModule,
-    NzSelectModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedRoutingModule,
+        NzDropDownModule,
+        NzAutocompleteModule,
+        NzGridModule,
+        NzFormModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NzDatePickerModule,
+        NzModalModule,
+        NzButtonModule,
+        NzSwitchModule,
+        NzCardModule,
+        NzSkeletonModule,
+        NzAvatarModule,
+        NzAlertModule,
+        NzTableModule,
+        NzDividerModule,
+        NzIconModule,
+        NzDrawerModule,
+        NzInputModule,
+        NzSelectModule,
+        NgxSpinnerModule,
+    ],
   exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent,CardComponent,TableBasicComponent,DrawerCreateComponent]
 })
 export class SharedModule { }

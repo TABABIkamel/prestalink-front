@@ -78,6 +78,12 @@ export class KeycloakService {
   public getNameAuthenticatedUser(){
     return this.kc.tokenParsed?.name
   }
+  public get_given_name_authenticatedUser(){
+    return this.kc.tokenParsed?.given_name
+  }
+  public get_family_name_authenticatedUser(){
+    return this.kc.tokenParsed?.family_name
+  }
   // public getSuppliers(){
   //   return this.http.get("http://localhost:8083/suppliers")
   // }

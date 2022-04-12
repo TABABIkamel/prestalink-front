@@ -11,4 +11,6 @@ export class Contrat{
   preambule:string;
   prixTotaleMission:number;
   penalisationParJour:number;
+  idCandidature:string;
+  refAo:string;
 }

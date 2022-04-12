@@ -8,9 +8,9 @@
       <!--      </nz-collapse-panel>-->
       <nz-collapse-panel [nzActive]="true" [nzHeader]="'Coordonnées personnel'">
         <form class="form-group" >
-          <input [disabled]="isVisible" value="{{contentModal.name}}"  nz-input />
-          <input [disabled]="isVisible" value="{{contentModal.lieu}}"  nz-input />
-          <input [disabled]="isVisible" value="{{contentModal.email}}"  nz-input />
+          <input title="nom candidat" class="mr-2 mt-2" readonly value="{{contentModal.name}}"  nz-input />
+          <input title="lieu candidat" class="mr-2 mt-2" readonly value="{{contentModal.lieu}}"  nz-input />
+          <input title="email candidat" class="mr-2 mt-2" readonly value="{{contentModal.email}}"  nz-input />
         </form>
       </nz-collapse-panel>
 
@@ -20,17 +20,14 @@
           <nz-collapse>
             <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Education'" >
               <div class="m-3" >
-                <nz-collapse *ngFor="let exp of contentModal.educations ">
+                <nz-collapse *ngFor="let educ of contentModal.educations ">
 
                   <nz-collapse-panel [nzActive]="true" [nzHeader]="'Education'">
                     <form class="form-group" >
-                      <div class="d-flex justify-content-around">
-                        <p class="m-3 "><b>date debut:</b> {{exp.dateDebut | date}}</p>
-                        <p class="m-3 "><b>date fin:</b> {{exp.dateFin | date}}</p>
-                      </div>
-                      <input [disabled]="isVisible" value="{{exp.nomEcole}}"  nz-input />
-                      <input [disabled]="isVisible" value="{{exp.typeDiplome}}"  nz-input />
-<!--                      <nz-range-picker value="{{[exp.dateDebut,exp.dateFin]}}" nzDisabled [nzFormat]="dateFormat"></nz-range-picker>-->
+                      <input title="nom école" class="mr-2 mt-2"  readonly value="{{educ.nomEcole}}"  nz-input />
+                      <input title="type diplome" class="mr-2 mt-2" readonly value="{{educ.typeDiplome}}"  nz-input />
+                      <label title="date debut" class="p-2 mr-2 mt-2" style="border: 1px solid #E1E2E8">{{educ.dateDebut | date}} </label>
+                      <label title="date fin" class="p-2" style="border: 1px solid #E1E2E8">{{educ.dateFin | date}}</label>
                     </form>
                   </nz-collapse-panel>
                 </nz-collapse>
@@ -43,15 +40,11 @@
               <div class="m-3" >
                 <nz-collapse *ngFor="let exp of contentModal.experiences">
                   <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experience'">
-                    <div class="d-flex justify-content-around">
-                      <p class="m-3 "><b>date debut:</b> {{exp.dateDebut | date}}</p>
-                      <p class="m-3 "><b>date fin:</b> {{exp.dateFin | date}}</p>
-                    </div>
-                    <input [disabled]="isVisible"value="{{exp.nomSociete}}" nz-input />
-                    <input [disabled]="isVisible" value="{{exp.titrePoste}}" nz-input/>
-<!--                    <nz-range-picker [nzDisabled]="isVisible" [nzDefaultPickerValue]=exp.dateDebut [nzFormat]="dateFormat"></nz-range-picker>-->
-
-                    <textarea [disabled]="isVisible" nz-input value="{{exp.descriptionPoste}}" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                    <input title="nom societe" class="mr-2 mt-2" readonly value="{{exp.nomSociete}}" nz-input />
+                    <input title="titre poste" class="mr-2 mt-2" readonly value="{{exp.titrePoste}}" nz-input/>
+                    <label title="date debut" class="p-2 mr-2 mt-2" style="border: 1px solid #E1E2E8">{{exp.dateDebut | date}} </label>
+                    <label title="date fin" class="p-2" style="border: 1px solid #E1E2E8">{{exp.dateFin | date}}</label>
+                    <textarea title="description de la poste" class="mr-2 mt-2" readonly nz-input value="{{exp.descriptionPoste}}" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                   </nz-collapse-panel>
                 </nz-collapse>
               </div>

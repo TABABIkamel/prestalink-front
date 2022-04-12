@@ -17,6 +17,7 @@ import {AppelOffreModule} from "./modules/appel-offre/appel-offre.module";
 import {NzLayoutModule} from "ng-zorro-antd/layout";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzMenuModule} from "ng-zorro-antd/menu";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 registerLocaleData(en);
 
@@ -29,19 +30,20 @@ function kcFactory(keycloak:KeycloakService) {
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    SharedModule,
-    AppelOffreModule,
-    CompleteProfileModule,
-    NzLayoutModule,
-    NzIconModule,
-    NzMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        SharedModule,
+        AppelOffreModule,
+        CompleteProfileModule,
+        NzLayoutModule,
+        NzIconModule,
+        NzMenuModule,
+        NgxSpinnerModule
+    ],
   providers: [
     {provide:APP_INITIALIZER,deps:[KeycloakService],useFactory:kcFactory,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:InterceptorService,multi:true},

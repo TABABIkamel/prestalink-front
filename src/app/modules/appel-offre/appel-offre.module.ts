@@ -17,6 +17,9 @@ import { CandidatureReviewedComponent } from '../../components/candidature-revie
 import { MesCandidatureComponent } from '../../components/mes-candidature/mes-candidature.component';
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzTableModule} from "ng-zorro-antd/table";
+import {NzMessageModule} from "ng-zorro-antd/message";
+import {NzSpinModule} from "ng-zorro-antd/spin";
+
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import {NzTableModule} from "ng-zorro-antd/table";
     AppelOffreRoutingModule,
     NgxPaginationModule,
     SharedModule,
+    NzMessageModule,
     NzButtonModule,
     NzIconModule,
     NzModalModule,
@@ -39,7 +43,8 @@ import {NzTableModule} from "ng-zorro-antd/table";
     NzDatePickerModule,
     NzInputModule,
     NzDividerModule,
-    NzTableModule
+    NzTableModule,
+    NzSpinModule
   ],
   exports: [AppeloffreComponent,GestionCandidatComponent]
 })

@@ -76,14 +76,14 @@
   </div>
 
 </div>
-<nz-modal [nzOkDisabled]="isPostuled || isProprietaire" [(nzVisible)]="isVisible" [nzTitle]="!isPostuled && !isProprietaire?'voulez-vous confirmer !!':'postulation interdit'"
-          (nzOnCancel)="handleCancel()" (nzOnOk)="postuler()">
-  <ng-container *nzModalContent>
-    <nz-alert *ngIf="!isPostuled && !isProprietaire" nzType="warning" nzMessage="voulez vous vraiment postuler à cette offre" nzShowIcon></nz-alert>
-    <nz-alert *ngIf="isPostuled" nzType="info" nzMessage="vous avez déjà postuler à cette offre " nzShowIcon></nz-alert>
-    <nz-alert *ngIf="isProprietaire" nzType="info" nzMessage="vous êtes le propriétaire de cette offre, vous ne pouvez pas postuler " nzShowIcon></nz-alert>
-  </ng-container>
+<!--<nz-modal [nzOkDisabled]="isPostuled || isProprietaire" [(nzVisible)]="isVisible" [nzTitle]="'voulez-vous confirmer !!'"-->
+<!--          (nzOnCancel)="handleCancel()" (nzOnOk)="postuler()">-->
+<!--  <ng-container *nzModalContent>-->
+<!--    <nz-alert *ngIf="!isPostuled && !isProprietaire" nzType="warning" nzMessage="voulez vous vraiment postuler à cette offre" nzShowIcon></nz-alert>-->
+<!--&lt;!&ndash;    <nz-alert *ngIf="isPostuled" nzType="info" nzMessage="vous avez déjà postuler à cette offre " nzShowIcon></nz-alert>&ndash;&gt;-->
+<!--&lt;!&ndash;    <nz-alert *ngIf="isProprietaire" nzType="info" nzMessage="vous êtes le propriétaire de cette offre, vous ne pouvez pas postuler " nzShowIcon></nz-alert>&ndash;&gt;-->
+<!--  </ng-container>-->
 
-</nz-modal>
+<!--</nz-modal>-->
 <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
 

@@ -10,6 +10,7 @@ import {NzModalService} from "ng-zorro-antd/modal";
 import {Esn} from "../../Models/Esn";
 import {AppelOffre} from "../../Models/AppelOffre";
 import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-appeloffre',
@@ -28,7 +29,12 @@ export class AppeloffreComponent implements OnInit {
   appelOffresLength: number;
   candidature: Candidature = new Candidature();
 
-  constructor(private modalService: NzModalService, private appelOffreService: AppelOffreService, private toastr: ToastrService, public keycloakService: KeycloakService,private route:Router) {
+  constructor(private modalService: NzModalService,
+              private appelOffreService: AppelOffreService,
+              private toastr: ToastrService,
+              public keycloakService: KeycloakService,
+              private route:Router,
+              private message: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -102,11 +108,23 @@ export class AppeloffreComponent implements OnInit {
   }
 
   showApplyModal(id: number, isPostuled: boolean,isProprietaire:boolean) {
-    console.log(isPostuled)
-    this.isPostuled = isPostuled
-    this.isProprietaire=isProprietaire
-    this.idPost = id;
-    this.isVisible = true;
+    if(isPostuled)
+      this.message.info('vous avez déjà postuler à cette offre')
+    else if(isProprietaire)
+      this.message.info('vous êtes le propriétaire de cette offre, vous ne pouvez pas postuler')
+    else{
+      console.log(isPostuled)
+      this.isPostuled = isPostuled
+      this.isProprietaire=isProprietaire
+      this.idPost = id;
+      this.isVisible = true;
+      this.modalService.confirm({
+        nzTitle: '<i>Do you Want to apply for this candidate?</i>',
+       // nzContent: '<b>Some descriptions</b>',
+        nzOnOk: () => {this.postuler()}
+      });
+    }
+
 
   }
 

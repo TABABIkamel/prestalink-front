@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <th>appel offre</th>
+    <th>reference</th>
     <th>name</th>
     <th>lieu</th>
     <th>email</th>
@@ -11,42 +12,54 @@
   <tbody>
   <tr *ngFor="let data of basicTable.data">
     <td>{{ data.titreAo }}</td>
+    <td>{{ data.refAo }}</td>
     <td>{{ data.name }}</td>
     <td>{{ data.lieu }}</td>
     <td>{{ data.email }}</td>
     <td *ngIf="isGestionCandidatComponent">
-      <button class="btn btn-success" (click)="accpeterCandidat(data.id)">Accepter</button>
+      <i nz-icon title="accepter" (click)="accpeterCandidat(data.id)" style="font-size: 25px;cursor: pointer" [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'" ></i>
+<!--      <button class="btn btn-success" (click)="accpeterCandidat(data.id)">Accepter</button>-->
       <nz-divider nzType="vertical"></nz-divider>
-      <button class="btn btn-danger" (click)="refuserCandidat(data.id)">Refuser</button>
-      <i (click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;" nzType="eye"
+      <i nz-icon title="refuser" nzType="close" (click)="refuserCandidat(data.id)" nzTheme="outline" style="font-size: 25px; color: #FB1923;cursor: pointer"></i>
+<!--      <button class="btn btn-danger" (click)="refuserCandidat(data.id)">Refuser</button>-->
+      <i title="display profile" (click)="showModal(data.id)"  class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
          nzTheme="outline"></i>
     </td>
     <td *ngIf="!isGestionCandidatComponent">
       <div class="d-flex justify-content-between">
         <p>{{data.status}}</p>
-        <i (click)="showContratModal()" nz-icon nzType="cloud-download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
-        <i (click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;" nzType="eye"
+        <i title="generate contract" (click)="showContratModal(data)" nz-icon nzType="download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
+        <i title="display profile"(click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
            nzTheme="outline"></i>
       </div>
     </td>
-    <nz-modal [(nzVisible)]="isVisible" nzOkText="Générer" nzTitle="informations de contrat" (nzOnCancel)="handleCancel()"
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+    </ngx-spinner>
+    <nz-modal [nzWidth]="900"  [(nzVisible)]="isFormContractVisible"  nzOkText="Générer" nzTitle="informations de contrat" (nzOnCancel)="handleCancel()"
               (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <input placeholder="nom esn" nz-input [(ngModel)]="contract.nomSocieteClient"  />
-        <input placeholder="capital esn" nz-input [(ngModel)]="contract.capitaleSocieteClient"/>
-        <input placeholder="lieu siege esn" nz-input [(ngModel)]="contract.lieuSiegeClient" />
-        <input placeholder="numero regitre commerce esn" nz-input [(ngModel)]="contract.numeroRegitreCommerceClient"/>
+        <input class="m-2" placeholder="nom esn" nz-input [(ngModel)]="contract.nomSocieteClient"  />
+        <input class="m-2" placeholder="capital esn" nz-input [(ngModel)]="contract.capitaleSocieteClient"/>
+        <input class="m-2" placeholder="lieu siege esn" nz-input [(ngModel)]="contract.lieuSiegeClient" />
+        <input class="m-2" placeholder="numero regitre commerce esn" nz-input [(ngModel)]="contract.numeroRegitreCommerceClient"/>
 
-        <input placeholder="nom representant de societe" nz-input [(ngModel)]="contract.nomRepresentantSocieteClient" />
-        <input placeholder="nom prestataire" nz-input [(ngModel)]="contract.nomPrestataire"/>
-        <input placeholder="prénom prestataire" nz-input [(ngModel)]="contract.prenomPrestataire" />
-        <input placeholder="lieu prestataire" nz-input [(ngModel)]="contract.lieuPrestataire"/>
-        <input placeholder="cin prestataire" nz-input [(ngModel)]="contract.cin"/>
-        <textarea name="preambule" nz-input placeholder="Rappeler ici, en quelques lignes, les raisons qui motivent l'accord intervenu. Ceci peut être utile ultérieurement pour l'interprétation du contrat" [nzAutosize]="{ minRows: 4, maxRows: 50 }" [(ngModel)]="contract.preambule"></textarea>
-        <input placeholder="prix totalede mission" nz-input [(ngModel)]="contract.prixTotaleMission"/>
-        <input placeholder="penalisation par jour" nz-input [(ngModel)]="contract.penalisationParJour"/>
+        <input class="m-2" placeholder="nom representant de societe" nz-input [(ngModel)]="contract.nomRepresentantSocieteClient" />
+        <input class="m-2" placeholder="nom prestataire" nz-input [(ngModel)]="contract.nomPrestataire"/>
+        <input class="m-2" placeholder="prénom prestataire" nz-input [(ngModel)]="contract.prenomPrestataire" />
+        <input class="m-2" placeholder="lieu prestataire" nz-input [(ngModel)]="contract.lieuPrestataire"/>
+        <input class="m-2" placeholder="cin prestataire" nz-input [(ngModel)]="contract.cin"/>
+        <textarea class="m-2" name="preambule" nz-input placeholder="Rappeler ici, en quelques lignes, les raisons qui motivent l'accord intervenu. Ceci peut être utile ultérieurement pour l'interprétation du contrat" [nzAutosize]="{ minRows: 4, maxRows: 50 }" [(ngModel)]="contract.preambule"></textarea>
+        <input class="m-2" placeholder="prix totalede mission" nz-input [(ngModel)]="contract.prixTotaleMission"/>
+        <input class="m-2" placeholder="penalisation par jour" nz-input [(ngModel)]="contract.penalisationParJour"/>
       </ng-container>
     </nz-modal>
+
+<!--    <nz-modal   [(nzVisible)]="isHasContratAlertVisible"  nzOkText="Ok" nzTitle="oups !!" (nzOnCancel)="handleCancel()"-->
+<!--              (nzOnOk)="handleOkModalAlert()">-->
+<!--      <ng-container *nzModalContent>-->
+<!--        <p>vous avez déja generé un contrat pour ce candidat</p>-->
+<!--      </ng-container>-->
+<!--    </nz-modal>-->
 
   </tr>
   </tbody>

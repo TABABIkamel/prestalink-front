@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
 import {KeycloakService} from "./keycloak.service";
+import {HttpRequestService} from "./http-request.service";
+import {catchError, finalize} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor{
 
-  constructor(private keycloakService:KeycloakService) { }
+  constructor(private keycloakService:KeycloakService,private httpRequestTrackingService: HttpRequestService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.httpRequestTrackingService.requestStarted();
     console.log("interceptor is here !!!")
     if(!this.keycloakService.kc.authenticated)
       return next.handle(req)
@@ -19,7 +22,13 @@ export class InterceptorService implements HttpInterceptor{
         Authorization:'Bearer '+this.keycloakService.kc.token
       }
     })
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      }),finalize(() => {
+        this.httpRequestTrackingService.requestFinished();
+      })
+    );;
   }
 
 
