@@ -18,18 +18,13 @@
       </li>
     </ul>
   </div>
+
 </nav>
 
 
 
 
 
-
-
-
-
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Chargement de l'application... </p>
-</ngx-spinner>
 <nz-layout *ngIf="keykcloak.kc.authenticated" class="app-layout">
   <nz-sider class="menu-sidebar"
             nzCollapsible
@@ -82,8 +77,10 @@
         <span class="float-lg-right mr-3">
           <app-nz-demo-dropdown-placement></app-nz-demo-dropdown-placement>
         </span>
+        <span class="float-lg-right mr-5">
+        <app-badge [notificationList]="notificationList" (reloadNotification)="reloadNotification($event)"></app-badge>
+        </span>
       </div>
-
     </nz-header>
     <nz-content>
 
@@ -91,7 +88,7 @@
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <nz-footer class="ml-auto mr-auto">Ant Design ©2022 Implement By Inetum</nz-footer>
+    <nz-footer class="ml-auto mr-auto">©2022 Implement By TABABI Kamel</nz-footer>
   </nz-layout>
 
 </nz-layout>
@@ -127,3 +124,16 @@
 <!--    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>-->
 <!--  </nz-layout>-->
 <!--</nz-layout>-->
+<!--<ng-template #template>-->
+<!--  <div class="ant-notification-notice-content">-->
+<!--    <div class="ant-notification-notice-with-icon">-->
+<!--          <span class="ant-notification-notice-icon">-->
+<!--            <i nz-icon nzType="smile" style="color: rgb(16, 142, 233);"></i>-->
+<!--          </span>-->
+<!--      <div class="ant-notification-notice-message">Notification Title</div>-->
+<!--      <div class="ant-notification-notice-description">-->
+<!--        {{notification}}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->

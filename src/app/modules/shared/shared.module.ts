@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SharedRoutingModule } from './shared-routing.module';
 import {DatePickerComponent} from "../../componentsNgZorro/date-picker/date-picker.component";
 import {FormComponent} from "../../componentsNgZorro/form/form.component";
@@ -32,11 +32,16 @@ import {NzDrawerModule} from "ng-zorro-antd/drawer";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NgxSpinnerModule} from "ngx-spinner";
+import { BadgeComponent } from '../../componentsNgZorro/badge/badge.component';
+import {NzBadgeModule} from "ng-zorro-antd/badge";
+import {NzListModule} from "ng-zorro-antd/list";
+//import {NzNotificationModule} from "ng-zorro-antd/notification";
+
 
 
 
 @NgModule({
-  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent],
+  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent],
     imports: [
         CommonModule,
         SharedRoutingModule,
@@ -61,7 +66,10 @@ import {NgxSpinnerModule} from "ngx-spinner";
         NzInputModule,
         NzSelectModule,
         NgxSpinnerModule,
+        NzBadgeModule,
+        NzListModule,
+      PerfectScrollbarModule
     ],
-  exports: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent,MoadalBasicComponent,CardComponent,TableBasicComponent,DrawerCreateComponent]
+    exports: [DatePickerComponent, FormComponent, InputAutoCompleteComponent, NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent]
 })
 export class SharedModule { }

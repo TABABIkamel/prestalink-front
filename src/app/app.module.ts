@@ -18,6 +18,7 @@ import {NzLayoutModule} from "ng-zorro-antd/layout";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzMenuModule} from "ng-zorro-antd/menu";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {NzNotificationModule} from "ng-zorro-antd/notification";
 
 registerLocaleData(en);
 
@@ -42,7 +43,8 @@ function kcFactory(keycloak:KeycloakService) {
         NzLayoutModule,
         NzIconModule,
         NzMenuModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        NzNotificationModule
     ],
   providers: [
     {provide:APP_INITIALIZER,deps:[KeycloakService],useFactory:kcFactory,multi:true},

@@ -1,0 +1,62 @@
+
+
+
+<!--<nz-badge nzDot><i  nz-icon nzType="notification" style="font-size: 23px; color: #08c;cursor: pointer"></i></nz-badge>-->
+    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popNotification" [nzPlacement]="'bottomRight'">
+      <nz-badge nzDot>
+        <i (click)="reloadNotifications()" style="font-size: 23px; color: #08c;cursor: pointer" nz-icon nzType="bell" theme="outline"></i>
+      </nz-badge>
+    </a>
+<div class="nav-wrap rounded-circle">
+<nz-dropdown-menu    #popNotification="nzDropdownMenu">
+  <div nz-menu class="pop-notification">
+    <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
+      <p class="text-dark font-weight-semibold m-b-0">
+        <i class="ml-3" style="font-size: 23px;color: #08c" nz-icon nzType="bell" theme="outline"></i>
+        <span class="ml-3 mt-5">Notification</span>
+      </p>
+<!--      <a nz-button nzType="link" nzSize="large" class="p-v-5" [routerLink]="''">-->
+<!--        <small>View All</small>-->
+<!--      </a>-->
+    </div>
+    <perfect-scrollbar *ngIf="notificationList" [perfectScrollbar]   style="max-height: 300px;width: 450px">
+      <nz-list class="ant-list-item-links ml-3" [nzDataSource]="notificationList" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+        <ng-template #item let-item class="border border-success">
+          <nz-list-item>
+            <a [routerLink]="''">
+              <div class="d-flex ">
+                <nz-avatar [nzIcon]="'user'" nzSrc="{{item.urlImageReceiverDto}}"></nz-avatar>
+                <div >
+                  <p class="ml-2 text-dark">{{item.contentDto}}</p>
+<!--                  <p class="m-b-0"><small>{{item.time}} ago</small></p>-->
+                </div>
+              </div>
+            </a>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </perfect-scrollbar>
+    <p class="ml-2 mt-2 mr-2" *ngIf="!notificationList">aucune notification trouvée</p>
+  </div>
+</nz-dropdown-menu>
+</div>
+<!--<a nz-dropdown [nzDropdownMenu]="menu">Hover me</a>-->
+<!--<nz-dropdown-menu #menu="nzDropdownMenu">-->
+<!--  <ul nz-menu>-->
+<!--    <perfect-scrollbar [perfectScrollbar] style="max-height: 100px">-->
+<!--      <nz-list>-->
+<!--        <li nz-menu-item>1st menu item</li>-->
+<!--        <li nz-menu-item>2nd menu item</li>-->
+<!--        <li nz-menu-item>3rd menu item</li>-->
+<!--        <li nz-menu-item>1st menu item</li>-->
+<!--        <li nz-menu-item>2nd menu item</li>-->
+<!--        <li nz-menu-item>3rd menu item</li>-->
+<!--        <li nz-menu-item>1st menu item</li>-->
+<!--        <li nz-menu-item>2nd menu item</li>-->
+<!--        <li nz-menu-item>3rd menu item</li>-->
+<!--      </nz-list>-->
+
+<!--    </perfect-scrollbar>-->
+<!--  </ul>-->
+<!--</nz-dropdown-menu>-->
+
