@@ -26,6 +26,10 @@ export class AppComponent implements OnInit {
   onLogin() {
     this.keykcloak.kc.login()
   }
+  async on(){
+    await this.onLogin()
+    console.log("tesr")
+  }
 
   async ngOnInit(): Promise<void> {
     this.getUserNotifications(this.keykcloak.getUsernameAuthenticatedUser())

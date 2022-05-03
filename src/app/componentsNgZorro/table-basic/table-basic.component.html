@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table  #basicTable [nzData]="listOfData">
   <thead>
   <tr>
     <th>appel offre</th>
@@ -28,13 +28,12 @@
     <td *ngIf="!isGestionCandidatComponent">
       <div class="d-flex justify-content-between">
         <p>{{data.status}}</p>
-        <i title="generate contract" (click)="showContratModal(data)" nz-icon nzType="download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
+        <i *ngIf="data.status=='ACCEPTED'" title="generate contract" (click)="showContratModal(data)" nz-icon nzType="download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
         <i title="display profile"(click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
            nzTheme="outline"></i>
       </div>
     </td>
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p>
-    </ngx-spinner>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-pulse" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
     <nz-modal [nzWidth]="900"  [(nzVisible)]="isFormContractVisible"  nzOkText="Générer" nzTitle="informations de contrat" (nzOnCancel)="handleCancel()"
               (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>

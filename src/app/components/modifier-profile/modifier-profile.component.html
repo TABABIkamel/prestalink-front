@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-around">
+  <div *ngIf="!keycloak.isEsn">
+    <img style="width: 250px;height: 250px" src="{{prestataire.imageLocation}}" class="mr-3 rounded">
+  </div>
+  <div *ngIf="keycloak.isEsn">
+    <img style="width: 250px;height: 250px" src="{{esn.imageLocation}}" class="mr-3 rounded">
+  </div>
+  <div *ngIf="!keycloak.isEsn">
+    <form class="form-group d-flex flex-column">
+      <input title="nom"style="width: 400px" class="mr-2 mt-2" name="nom" [(ngModel)]="prestataire.nom" nz-input/>
+      <input title="prenom" style="width: 400px" class="mr-2 mt-2" name="prenom" [(ngModel)]="prestataire.prenom" nz-input/>
+      <input title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="prestataire.email" nz-input/>
+      <input title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="prestataire.rib" nz-input/>
+      <input title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="prestataire.iban" nz-input/>
+      <input title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="prestataire.lieu" nz-input/>
+      <input style="width: 400px" title="profession" class="mr-2 mt-2" name="profession" [(ngModel)]="prestataire.profession" nz-input/>
+    </form>
+    <button class="btn-primary float-right mt-3 rounded" (click)="modifierPrestataireProfile()">modifier compte</button>
+  </div>
+
+  <div *ngIf="keycloak.isEsn">
+    <form class="form-group d-flex flex-column">
+      <input title="nom"style="width: 400px" class="mr-2 mt-2" name="nom" [(ngModel)]="esn.nonEsn" nz-input/>
+      <input title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="esn.email" nz-input/>
+      <input title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="esn.rib" nz-input/>
+      <input title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="esn.iban" nz-input/>
+      <input title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="esn.lieu" nz-input/>
+    </form>
+    <button class="btn-primary float-right mt-3 rounded" (click)="modifierEsnProfile()">modifier compte</button>
+  </div>
+</div>

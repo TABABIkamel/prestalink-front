@@ -11,6 +11,9 @@ import {Esn} from "../../Models/Esn";
 import {AppelOffre} from "../../Models/AppelOffre";
 import {Router} from "@angular/router";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {Subscription} from "rxjs";
+import {NgxSpinnerService} from "ngx-spinner";
+import {HttpRequestService} from "../../services/http-request.service";
 
 @Component({
   selector: 'app-appeloffre',
@@ -18,9 +21,10 @@ import {NzMessageService} from "ng-zorro-antd/message";
 })
 export class AppeloffreComponent implements OnInit {
   @ViewChild(MoadalBasicComponent) modal: MoadalBasicComponent;
+  private showSpinnerSubscription: Subscription;
+  public pendingHttpRequests:number=0;
   loading = true
   isVisible = false;
- // vara: boolean = false;
   isPostuled: boolean = true;
   isProprietaire:boolean=false;
   appelOffres: AppelOffre[]
@@ -28,19 +32,32 @@ export class AppeloffreComponent implements OnInit {
   idPost: any;
   appelOffresLength: number;
   candidature: Candidature = new Candidature();
+  ModalDescriptionIsVisible: boolean = false;
+  contentTitre: string;
+  descriptionContent: string;
+  appelOffreNotFound:boolean=false;
 
   constructor(private modalService: NzModalService,
               private appelOffreService: AppelOffreService,
               private toastr: ToastrService,
               public keycloakService: KeycloakService,
               private route:Router,
-              private message: NzMessageService) {
+              private message: NzMessageService,
+              private httpRequestTrackingService: HttpRequestService,
+              private spinner: NgxSpinnerService) {
+    this.showSpinnerSubscription = httpRequestTrackingService.pendingHttpRequests$.subscribe((value)=>{
+      this.pendingHttpRequests=value;
+      if(this.pendingHttpRequests>0)
+        this.spinner.show()
+      else
+        this.spinner.hide()
+    })
   }
 
   ngOnInit(): void {
     this.appelOffreService.getAllAo().subscribe((res) => {
       console.log(res)
-      let pipes = new DatePipe('en-US');
+      let pipes = new DatePipe('fr_FR');
       res.dateDebutAoDto = pipes.transform(res.dateDebutAoDto, 'yyyy-MM-dd')
       this.appelOffres = res
       console.log()
@@ -67,7 +84,12 @@ export class AppeloffreComponent implements OnInit {
 
       this.appelOffresLength = this.appelOffres.length;
     }, (err) => {
-      this.toastr.error('Oups!', 'error was occurred ');
+      if(err.status=404) {
+        this.appelOffreNotFound = true;
+        this.toastr.info('', "aucune appel trouvée");
+      }
+        else
+          this.toastr.error("OUPS","error was occurred")
     })
   }
 
@@ -94,9 +116,7 @@ export class AppeloffreComponent implements OnInit {
     this.isVisible = false;
 
   }
-  ModalDescriptionIsVisible: boolean = false;
-  contentTitre: string;
-  descriptionContent: string;
+
 
 
   handleCancel() {

@@ -6,6 +6,7 @@ export class Esn{
   lieu: string
   nonEsn: string
   prestataire: boolean
+  imageLocation:string
   rib: string
   usernameRepresentant: string
 

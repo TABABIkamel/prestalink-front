@@ -1,5 +1,5 @@
 
-    <button nz-button nzType="primary" (click)="open()">Create</button>
+    <button *ngIf="nameOfParentComponent!='mesAppelOffres'" nz-button nzType="primary" (click)="open()">Create</button>
     <nz-drawer
       [nzBodyStyle]="{ overflow: 'auto' }"
       [nzMaskClosable]="false"

@@ -1,0 +1,69 @@
+<nz-collapse  >
+  <nz-collapse-panel [nzActive]="true"  [nzHeader]="'modifier votre cv'">
+
+    <nz-collapse>
+      <nz-collapse-panel [nzActive]="true" [nzHeader]="'Educations'" >
+        <i style="font-size: 16px; color: #08c;" class=" float-right" [nzSpin]="false" (click)="addSouSectionEducation()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
+        <i style="font-size: 16px; color: #08c;" nz-icon nzType="minus-circle" (click)="removeSouSectionEducation()" nzTheme="outline"></i>
+
+        <div class="m-3" >
+          <nz-collapse>
+
+            <nz-collapse-panel [nzActive]="true"  *ngFor="let p of nomberSousSectionEducation;let i = index"  [nzHeader]="'Education'">
+              <input *ngIf="false"  placeholder="id"   nz-input [(ngModel)]="tabEducationId[i]" />
+                <input   placeholder="Nom ecole"   nz-input [(ngModel)]="tabEcole[i]" />
+                <div *ngIf="nomEcole?.invalid ">
+                  <div class="alert alert-danger m-2" *ngIf="nomEcole?.touched && nomEcole?.errors?.required " >
+                    champ nom ecole est obligatoire
+                  </div>
+                </div>
+                <!------------------------------------------->
+
+                <input placeholder="Type diplome"  nz-input [(ngModel)]="tabTypeDiplome[i]" [nzAutocomplete]="auto" />
+                <nz-autocomplete #auto [compareWith]="compareFun">
+                  <nz-auto-option *ngFor="let option of options" [nzValue]="option" [nzLabel]="option.label">
+                    {{ option.label }}
+                  </nz-auto-option>
+                </nz-autocomplete>
+                <div *ngIf="typediplome?.invalid ">
+                  <div class="alert alert-danger m-2" *ngIf="typediplome?.touched && typediplome?.errors?.required" >
+                    champ type diplome est obligatoire
+                  </div>
+                </div>
+                <!------------------------------------------->
+                <nz-range-picker  [(ngModel)]="tabDateDebutAndFin[i]" [nzFormat]="dateFormat"></nz-range-picker>
+                <div *ngIf="dureeEcucation?.invalid ">
+                  <div class="alert alert-danger m-2" *ngIf="dureeEcucation?.touched && dureeEcucation?.errors?.required" >
+                    champ duree ecucation est obligatoire
+                  </div>
+                </div>
+
+            </nz-collapse-panel>
+
+          </nz-collapse>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+
+    <nz-collapse>
+      <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experiences'" >
+        <i style="font-size: 16px; color: #08c;" class=" float-right" [nzSpin]="true" (click)="addSouSectionExperience()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
+        <i style="font-size: 16px; color: #08c;" nz-icon nzType="minus-circle" (click)="removeSouSectionExperience()" nzTheme="outline"></i>
+        <div class="m-3" >
+          <nz-collapse>
+            <nz-collapse-panel [nzActive]="true" *ngFor="let p of nomberSousSectionExperience;let i = index" [nzHeader]="'Experience'">
+              <input *ngIf="false"  placeholder="id"   nz-input [(ngModel)]="tabExperienceId[i]" />
+              <input placeholder="Nom Societe" nz-input [(ngModel)]="tabNomSociete[i]" />
+              <input placeholder="Titre de poste" nz-input [(ngModel)]="tabTitrePoste[i]" />
+              <nz-range-picker [(ngModel)]="tabDateDebutAndFinPoste[i]" [nzFormat]="dateFormat"></nz-range-picker>
+              <textarea nz-input placeholder="Ajouter une brieve descrption" [(ngModel)]="tabDescriptionPoste[i]" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-collapse-panel>
+</nz-collapse>
+<button class="btn btn-primary float-right border-info m-3" (click)="modfierCv()">modifier mon cv</button>
+
+

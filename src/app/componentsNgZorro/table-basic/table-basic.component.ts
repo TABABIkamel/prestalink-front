@@ -70,13 +70,13 @@ export class TableBasicComponent {
   accpeterCandidat(id: string) {
     this.modal.confirm({
       nzTitle: '<i>Do you Want to accept this candidate?</i>',
-      nzContent: '<b>Some descriptions</b>',
+      //nzContent: '<b>Some descriptions</b>',
       nzOnOk: () => {
         this.approval.id = id
         this.approval.status = true
         this.appelOffreService.candidatureReview(this.approval).subscribe(() => {
           this.route.navigateByUrl('gestionCandidat')
-          this.toastr.success('Success', 'candidat a été accepté')
+          this.toastr.success('Done', 'candidat a été accepté')
         })
       }
     });
@@ -98,8 +98,7 @@ export class TableBasicComponent {
       setTimeout(()=>{
         this.spinner.hide().then()
         this.reloadData.emit(true)
-        this.toastr.success("Done","contrat enregistré sous c:/prestalink")
-
+        this.toastr.success("Done",`contrat enregistré sous c:/prestalink/${this.keycloak.getUsernameAuthenticatedUser()}`)
       },3000)
       console.log(res)
     }, err => {

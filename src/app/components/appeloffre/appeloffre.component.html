@@ -1,5 +1,5 @@
 <app-drawer-create *ngIf="keycloakService.isEsn" class="m-2 mb-2"></app-drawer-create>
-<div class="d-flex justify-content-around flex-wrap text-center">
+<div *ngIf="!appelOffreNotFound" class="d-flex justify-content-around flex-wrap text-center">
   <div class="text-center"
        *ngFor="let ao of appelOffres | paginate: { itemsPerPage: 9, currentPage: page,totalItems:appelOffresLength };let i =index ">
     <!--  <div class="card-header-sm">-->
@@ -85,5 +85,8 @@
 <!--  </ng-container>-->
 
 <!--</nz-modal>-->
-<pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
-
+<pagination-controls *ngIf="!appelOffreNotFound" class="text-center" (pageChange)="page = $event"></pagination-controls>
+<div  *ngIf="appelOffreNotFound" >
+  <p class="text-center mt-5">aucune appel offre pour le moment</p>
+</div>
+<app-spinner ></app-spinner>

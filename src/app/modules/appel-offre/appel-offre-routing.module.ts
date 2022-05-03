@@ -4,12 +4,16 @@ import {AppeloffreComponent} from "../../components/appeloffre/appeloffre.compon
 import {GestionCandidatComponent} from "../../components/gestion-candidat/gestion-candidat.component";
 import {CandidatureReviewedComponent} from "../../components/candidature-reviewed/candidature-reviewed.component";
 import {MesCandidatureComponent} from "../../components/mes-candidature/mes-candidature.component";
+import {MesAppelOffreComponent} from "../../components/mes-appel-offre/mes-appel-offre.component";
+import {ViewContratComponent} from "../../components/view-contrat/view-contrat.component";
 
 const routes: Routes = [
   {path:'',component:AppeloffreComponent},
   {path:'gestionCandidat',component:GestionCandidatComponent},
   {path:'candidatEvalue',component:CandidatureReviewedComponent},
-  {path:'mesCandidatures',component:MesCandidatureComponent}
+  {path:'mesCandidatures',component:MesCandidatureComponent},
+  {path:'mesAppelOffres',component:MesAppelOffreComponent},
+  {path:'mesContrats/:username',component:ViewContratComponent}
 ];
 
 @NgModule({

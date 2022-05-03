@@ -13,7 +13,7 @@
           Login
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" (click)="onLogin()">Login</a>
+          <a class="dropdown-item" (click)="on()">Login</a>
         </div>
       </li>
     </ul>
@@ -39,11 +39,15 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Menu" nzIcon="dashboard">
         <ul >
           <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 
-           <a  routerLink="/appeloffre">appel offres</a>
+           <a  routerLink="/appeloffre">acceuil</a>
+          </li>
+          <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+
+            <a  routerLink="/mesAppelOffres">mes appel offres</a>
           </li>
           <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 

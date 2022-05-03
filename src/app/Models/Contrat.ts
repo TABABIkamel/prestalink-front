@@ -1,13 +1,13 @@
 export class Contrat{
   nomSocieteClient:string;
-  capitaleSocieteClient:number;
+  capitaleSocieteClient:string;
   lieuSiegeClient:string;
-  numeroRegitreCommerceClient:number;
+  numeroRegitreCommerceClient:string;
   nomRepresentantSocieteClient:string;
   nomPrestataire:string;
   prenomPrestataire:string;
   lieuPrestataire:string;
-  cin:number;
+  cin:string;
   preambule:string;
   prixTotaleMission:number;
   penalisationParJour:number;

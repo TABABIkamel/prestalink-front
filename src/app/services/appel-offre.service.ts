@@ -21,8 +21,8 @@ export class AppelOffreService {
   getAllAo():Observable<any>{
     return this.http.get(`${this.uri}allAo`,this.httpOptions)
   }
-  Postuler(candidature:Candidature):Observable<Candidature>{
-    return this.http.post<Candidature>(`${this.uri}submit`,candidature)
+  Postuler(candidature:Candidature):Observable<any>{
+    return this.http.post(`${this.uri}submit`,candidature,{responseType: 'text'})
   }
   getCandidat(usernameRepresentant:string):Observable<any>{
     return this.http.get<any>(`${this.uri}tasks/${usernameRepresentant}`,this.httpOptions)
@@ -37,6 +37,26 @@ export class AppelOffreService {
     return this.http.get<any>(`${this.uri}getCandidatureByUsernameCandidate/${usernameCandidat}`,this.httpOptions)
   }
   generateContract(contrat:Contrat):Observable<any>{
-    return this.http.post(`${this.uri}generateContrat`,contrat,this.httpOptions)
+    return this.http.post(`${this.uri}generateContrat`,contrat,{responseType: 'text'})
+  }
+  getAoByUsernameEsn(username:string):Observable<any>{
+    return this.http.get(`${this.uri}getAllAoByUsernameEsn/${username}`)
+  }
+  deleteAo(idAo:number):Observable<any>{
+    return this.http.delete(`${this.uri}deleteAo/${idAo}`,{responseType: 'text'})
+  }
+
+  getAoById(idAo:number):Observable<any>{
+    return this.http.get(`${this.uri}getAoById/${idAo}`)
+  }
+  editAo(appelOffre:AppelOffre):Observable<any>{
+    return this.http.put(`${this.uri}editAo`,appelOffre)
+  }
+
+  getAllContratUrlByUsernameForPrestataire(username:string):Observable<any>{
+    return this.http.get(`${this.uri}getAllContratUrlByUsernameForPrestataire/${username}`)
+  }
+  getAllContratUrlByUsernameForEsn(username:string):Observable<any>{
+    return this.http.get(`${this.uri}getAllContratUrlByUsernameForEsn/${username}`)
   }
 }

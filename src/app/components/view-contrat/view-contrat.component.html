@@ -1,0 +1,39 @@
+
+<p *ngIf="listOfDataContratAsEsn" class="font-weight-bold font-italic lead">Vos contrats en tant que ESN</p>
+<nz-table *ngIf="listOfDataContratAsEsn" #basicTableESN [nzData]="listOfDataContratAsEsn">
+  <thead>
+  <tr>
+    <th>appel offre</th>
+    <th>lien</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTableESN.data">
+    <td><p >{{data.titreAppelOffre}}</p></td>
+    <td class="d-flex justify-content-between">
+      <p >contrat avec {{data.nomInternaute}}</p>
+      <a href="{{ data.urlContrat }}"> <i style="font-size: 24px; color: #08c;" nz-icon nzType="eye" nzTheme="outline"></i></a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<p class="font-weight-bold font-italic lead">Vos contrats en tant que prestataire</p>
+<nz-table #basicTablePrestataire [nzData]="listOfDataContratAsPrestataire">
+  <thead>
+  <tr>
+    <th>appel offre</th>
+    <th>lien</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTablePrestataire.data">
+    <td><p >{{data.titreAppelOffre}}</p></td>
+    <td class="d-flex justify-content-between">
+      <p >contrat avec {{data.nomInternaute}}</p>
+      <a href="{{ data.urlContrat }}"> <i style="font-size: 24px; color: #08c;" nz-icon nzType="eye" nzTheme="outline"></i></a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+

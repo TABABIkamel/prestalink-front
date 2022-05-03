@@ -1,9 +1,9 @@
-<div *ngIf="showSpinner$ | async  " class="d-flex justify-content-center overlay">
-<div>
-  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
-</div>
-</div>
-
+<!--<div *ngIf="showSpinner$ | async  " class="d-flex justify-content-center overlay">-->
+<!--<div>-->
+<!--  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>-->
+<!--</div>-->
+<!--</div>-->
+<app-spinner [sppinerText]="'Loading... '"></app-spinner>
 <app-table-basic  (reloadData)="reloadComponent($event)" [isGestionCandidatComponent]="false" (modalData)="getIdCandidat($event)" (isVisibleData)="getIsVisibleValue($event)"></app-table-basic>
 <nz-modal  [nzWidth]="900"  [(nzVisible)]="isVisible" nzTitle="Candidat: {{contentModal?.name}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>

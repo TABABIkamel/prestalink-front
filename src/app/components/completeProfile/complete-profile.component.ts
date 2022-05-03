@@ -7,6 +7,8 @@ import {CompleteProfileService} from "../../services/complete-profile.service";
 import {Router} from "@angular/router";
 import {KeycloakService} from "../../services/keycloak.service";
 import {Observable} from "rxjs";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {NzUploadChangeParam} from "ng-zorro-antd/upload";
 interface Option {
   label: string;
   value: string;
@@ -15,18 +17,46 @@ interface Option {
   selector: 'app-complete-profile',
   templateUrl: './complete-profile.component.html'
 })
-export class CompleteProfileComponent{
+export class CompleteProfileComponent {
   selectedFiles?: FileList;
   currentFile: File;
   progress = 0;
   message = '';
   fileInfos?: Observable<any>;
   formData: FormData = new FormData();
+  checked = true;
+  nomberSousSectionEducation: number[] = [0]
+  nomberSousSectionExperience: number[] = new Array(1);
+  buttonSectionEducation: boolean = false;
+  tabEcole: string[] = new Array();
+
+  show: boolean[] = new Array();
+  tabTypeDiplome: Option[] = new Array();
+  tabDateDebutAndFin: Date[][] = new Array();
+  tabNomSociete: string[] = new Array();
+  tabTitrePoste: string[] = new Array();
+  tabDateDebutAndFinPoste: Date[][] = new Array();
+  tabDescriptionPoste: string[] = new Array();
+  compteur: number;
+  comp: number = 1
+  options: any[] = [
+    {label: 'baccalauréat', value: 'baccalauréat'},
+    {label: 'Licence Bac+3', value: 'Licence'},
+    {label: 'Master Bac+5', value: 'Master'},
+    {label: 'ingénierie Bac+5', value: 'ingénierie'},
+    {label: 'doctorat', value: 'doctorat'}
+  ];
+  dateFormat = 'yyyy/MM/dd';
+  monthFormat = 'yyyy/MM';
+  typeDiplome: string
+  prestataire = new Prestataire();
+  esn = new Esn();
   selectFile(event: any): void {
     console.log('yessss')
 
     this.selectedFiles = event.target.files;
   }
+
   // upload(): void {
   //   this.progress = 0;
   //   if (this.selectedFiles) {
@@ -57,63 +87,79 @@ export class CompleteProfileComponent{
   //   }
   // }
   ////
-   buttonSectionEducation: boolean=false;
-  constructor(private toastr: ToastrService,private completeProfileService: CompleteProfileService,private route:Router,private keycloakService:KeycloakService) {
+
+
+  constructor(private toastr: ToastrService, private completeProfileService: CompleteProfileService, private route: Router, private keycloakService: KeycloakService, private msg: NzMessageService) {
   }
-  checked=true;
-  nomberSousSectionEducation:number[]=[0]
-  nomberSousSectionExperience:number[]=new Array(1);
-  options: any[] = [
-    { label: 'baccalauréat', value:  'baccalauréat' },
-    { label: 'Licence Bac+3', value: 'Licence' },
-    { label: 'Master Bac+5', value:  'Master' },
-    { label: 'ingénierie Bac+5', value: 'ingénierie' },
-    { label: 'doctorat', value: 'doctorat' }
-  ];
-  dateFormat = 'yyyy/MM/dd';
-  monthFormat = 'yyyy/MM';
-  typeDiplome:string
-  prestataire=new Prestataire();
-  esn=new Esn();
-  profile=new FormGroup({
-    nomEsn:new FormControl('',Validators.required),
-    nom:new FormControl('',Validators.required),
-    prenom:new FormControl('',Validators.required),
-    email:new FormControl('',Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9][a-zA-Z0-9]+$')])),
-    profession:new FormControl('',Validators.required),
-    rib:new FormControl('',[Validators.required,Validators.pattern('^[0-9]{20}')]),
-    iban:new FormControl('',[Validators.required,Validators.pattern('^[A-Z][A-Z][0-9]{22}')]),
-    lieu:new FormControl('',Validators.required),})
-  get nomEsn(){return this.profile.get('nomEsn')}
-  get nom(){return this.profile.get('nom')}
-  get prenom(){return this.profile.get('prenom')}
-  get email(){return this.profile.get('email')}
-  get profession(){return this.profile.get('profession')}
-  get rib(){return this.profile.get('rib')}
-  get iban(){return this.profile.get('iban')}
-  get lieu(){return this.profile.get('lieu')}
-  tabEcole: string[]=new Array();
-  show:boolean[]=new Array();
-  tabTypeDiplome: Option[]=new Array();
-  tabDateDebutAndFin:Date[][]=new Array();
-  tabNomSociete: string[]=new Array();
-  tabTitrePoste: string[]=new Array();
-  tabDateDebutAndFinPoste:Date[][]=new Array();
-  tabDescriptionPoste: string[]=new Array();
-  compteur:number;
-  showError:boolean=false
-  education=new FormGroup({
-    nomEcole:new FormControl('',Validators.required),
-    typeDiplome:new FormControl('',Validators.required),
-    dureeEcucation:new FormControl('',Validators.required),
-   })
-  get nomEcole(){return this.education.get('nomEcole')}
-  get typediplome(){return this.education.get('typeDiplome')}
-  get dureeEcucation(){return this.education.get('dureeEcucation')}
-  experience=new FormGroup({
-    nomSociete:new FormControl('',Validators.required),
-    titrePoste:new FormControl('',Validators.required),
-    dureePoste:new FormControl('',Validators.required),
+
+
+  profile = new FormGroup({
+    nomEsn: new FormControl('', Validators.required),
+    nom: new FormControl('', Validators.required),
+    prenom: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9][a-zA-Z0-9]+$')])),
+    profession: new FormControl('', Validators.required),
+    rib: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{20}')]),
+    iban: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][A-Z][0-9]{22}')]),
+    lieu: new FormControl('', Validators.required),
+  })
+
+  get nomEsn() {
+    return this.profile.get('nomEsn')
+  }
+
+  get nom() {
+    return this.profile.get('nom')
+  }
+
+  get prenom() {
+    return this.profile.get('prenom')
+  }
+
+  get email() {
+    return this.profile.get('email')
+  }
+
+  get profession() {
+    return this.profile.get('profession')
+  }
+
+  get rib() {
+    return this.profile.get('rib')
+  }
+
+  get iban() {
+    return this.profile.get('iban')
+  }
+
+  get lieu() {
+    return this.profile.get('lieu')
+  }
+
+
+  showError: boolean = false
+  education = new FormGroup({
+    nomEcole: new FormControl('', Validators.required),
+    typeDiplome: new FormControl('', Validators.required),
+    dureeEcucation: new FormControl('', Validators.required),
+  })
+
+  get nomEcole() {
+    return this.education.get('nomEcole')
+  }
+
+  get typediplome() {
+    return this.education.get('typeDiplome')
+  }
+
+  get dureeEcucation() {
+    return this.education.get('dureeEcucation')
+  }
+
+  experience = new FormGroup({
+    nomSociete: new FormControl('', Validators.required),
+    titrePoste: new FormControl('', Validators.required),
+    dureePoste: new FormControl('', Validators.required),
   })
   compareFun = (o1: Option | string, o2: Option) => {
     if (o1) {
@@ -123,23 +169,24 @@ export class CompleteProfileComponent{
     }
   };
 
-  remplirEducationTable(){
-    for(let i=0;i<this.nomberSousSectionEducation.length;i++){
-      this.prestataire.education[i]=new Education()
-      this.prestataire.education[i].nomEcole=this.tabEcole[i]
-      this.prestataire.education[i].typeDiplome=this.tabTypeDiplome[i].value
-      this.prestataire.education[i].dateDebut=this.tabDateDebutAndFin[i][0]
-      this.prestataire.education[i].dateFin=this.tabDateDebutAndFin[i][1]
+  remplirEducationTable() {
+    for (let i = 0; i < this.nomberSousSectionEducation.length; i++) {
+      this.prestataire.education[i] = new Education()
+      this.prestataire.education[i].nomEcole = this.tabEcole[i]
+      this.prestataire.education[i].typeDiplome = this.tabTypeDiplome[i].value
+      this.prestataire.education[i].dateDebut = this.tabDateDebutAndFin[i][0]
+      this.prestataire.education[i].dateFin = this.tabDateDebutAndFin[i][1]
     }
   }
-  remplirExperienceTable(){
-    for(let i=0;i<this.nomberSousSectionExperience.length;i++){
-      this.prestataire.experience[i]=new Experience()
-      this.prestataire.experience[i].nomSociete=this.tabNomSociete[i]
-      this.prestataire.experience[i].titrePoste=this.tabTitrePoste[i]
-      this.prestataire.experience[i].dateDebut=this.tabDateDebutAndFinPoste[i][0]
-      this.prestataire.experience[i].dateFin=this.tabDateDebutAndFinPoste[i][1]
-      this.prestataire.experience[i].descriptionPoste=this.tabDescriptionPoste[i]
+
+  remplirExperienceTable() {
+    for (let i = 0; i < this.nomberSousSectionExperience.length; i++) {
+      this.prestataire.experience[i] = new Experience()
+      this.prestataire.experience[i].nomSociete = this.tabNomSociete[i]
+      this.prestataire.experience[i].titrePoste = this.tabTitrePoste[i]
+      this.prestataire.experience[i].dateDebut = this.tabDateDebutAndFinPoste[i][0]
+      this.prestataire.experience[i].dateFin = this.tabDateDebutAndFinPoste[i][1]
+      this.prestataire.experience[i].descriptionPoste = this.tabDescriptionPoste[i]
     }
   }
 
@@ -154,16 +201,19 @@ export class CompleteProfileComponent{
         this.currentFile = file;
         console.log(file)
         await this.completeProfileService.completeProfilePrestataire(this.prestataire)
-          .subscribe(res => this.completeProfileService.uploadPhotoToPrestataire(this.currentFile,this.prestataire.usernamePrestataire)
-            .subscribe(
-              res=>{this.route.navigateByUrl('appeloffre')
-               window.location.reload()}),
-              error => this.toastr.error('OUPS', 'you have already completed your profile'))
+          .subscribe(res => this.completeProfileService.uploadPhotoToPrestataire(this.currentFile, this.prestataire.usernamePrestataire)
+              .subscribe(
+                res => {
+                  this.route.navigateByUrl('appeloffre')
+                  window.location.reload()
+                }),
+            error => this.toastr.error('OUPS', 'you have already completed your profile'))
       }
       console.log(this.prestataire)
     }
   }
-  submitProfileEsn():void{
+
+  submitProfileEsn(): void {
     this.progress = 0;
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
@@ -172,42 +222,57 @@ export class CompleteProfileComponent{
         console.log(file)
         this.completeProfileService.completeProfileEsn(this.esn)
           .subscribe
-          ((res)=>{
+          ((res) => {
               console.log(res)
-            console.log(res.usernameRepresentant)
-            this.completeProfileService.uploadPhotoToEsn(this.currentFile,res.usernameRepresentant)
-              .subscribe(res=>{
-                // this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-                // this.route.onSameUrlNavigation = 'reload';
-                window.location.reload()
-                this.route.navigateByUrl('appeloffre')
+              console.log(res.usernameRepresentant)
+              this.completeProfileService.uploadPhotoToEsn(this.currentFile, res.usernameRepresentant)
+                .subscribe(res => {
+                  // this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+                  // this.route.onSameUrlNavigation = 'reload';
+                  window.location.reload()
+                  this.route.navigateByUrl('appeloffre')
 
-              })
+                })
 
             }
-            ,(err)=>{console.log(err)})
+            , (err) => {
+              console.log(err)
+            })
       }
     }
 
     console.log(this.esn)
 
   }
-    comp:number=1
+
+
   addSouSectionEducation() {
     this.nomberSousSectionEducation.push(this.comp);
-    this.comp=this.comp+1;
+    this.comp = this.comp + 1;
   }
 
   addSouSectionExperience() {
     this.nomberSousSectionExperience.push(1)
   }
-bool:number;
+
+  bool: number;
 
   String(i: string) {
     console.log(i)
   }
 
   showPlusSection() {
-    this.buttonSectionEducation=true;
+    this.buttonSectionEducation = true;
   }
+
+  // handleChange(info: NzUploadChangeParam): void {
+  //   if (info.file.status !== 'uploading') {
+  //     console.log(info.file, info.fileList);
+  //   }
+  //   if (info.file.status === 'done') {
+  //     this.msg.success(`${info.file.name} file uploaded successfully`);
+  //   } else if (info.file.status === 'error') {
+  //     this.msg.error(`${info.file.name} file upload failed.`);
+  //   }
+  // }
 }

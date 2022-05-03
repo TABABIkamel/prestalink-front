@@ -63,14 +63,21 @@ export class KeycloakService {
     });
     await this.kc.init({
       //onLoad: 'login-required',
-      onLoad :"check-sso",
+      onLoad: "check-sso",
       //promiseType:"native"
     });
-    console.log(this.kc.token);
-    console.log('token after')
+    //console.log(this.kc.token);
+    //console.log('token after')
     console.log(this.kc.tokenParsed?.preferred_username)
-    this.http.get<Esn>(`http://localhost:8089/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`,this.httpOptions)
-      .subscribe((res)=>{this.functionCalledWhenUserIsEsn(res)},(err)=>{this.functionCalledWhenUserIsNotEsn(err)})
+
+      this.http.get<Esn>(`http://localhost:8089/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`, this.httpOptions)
+        .subscribe((res) => {
+          this.functionCalledWhenUserIsEsn(res)
+        }, (err) => {
+          this.functionCalledWhenUserIsNotEsn(err)
+        })
+
+
   }
   public getUsernameAuthenticatedUser(){
     return this.kc.tokenParsed?.preferred_username

@@ -3,6 +3,9 @@ import {TableBasicComponent} from "../../componentsNgZorro/table-basic/table-bas
 import {AppelOffreService} from "../../services/appel-offre.service";
 import {KeycloakService} from "../../services/keycloak.service";
 import {element} from "protractor";
+import {Subscription} from "rxjs";
+import {HttpRequestService} from "../../services/http-request.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-gestion-candidat',
@@ -11,12 +14,25 @@ import {element} from "protractor";
 })
 export class GestionCandidatComponent implements OnInit {
 @ViewChild(TableBasicComponent) dataTable:any;
+  private showSpinnerSubscription: Subscription;
+  public pendingHttpRequests:number=0;
   isVisible: boolean;
   contentModal:any;
   dateFormat = 'yyyy/MM/dd';
   monthFormat = 'yyyy/MM';
   inGestionCandidatComponent=true;
-  constructor(private appelOffreService:AppelOffreService,private keycloakService:KeycloakService) { }
+  constructor(private appelOffreService:AppelOffreService,
+              private keycloakService:KeycloakService,
+              httpRequestTrackingService: HttpRequestService,
+              private spinner: NgxSpinnerService) {
+    this.showSpinnerSubscription = httpRequestTrackingService.pendingHttpRequests$.subscribe((value)=>{
+      this.pendingHttpRequests=value;
+      if(this.pendingHttpRequests>0)
+        this.spinner.show()
+      else
+        this.spinner.hide()
+    })
+  }
 
   ngOnInit(): void {
     this.appelOffreService.getCandidat(this.keycloakService.getUsernameAuthenticatedUser()).subscribe((res)=>{
@@ -43,7 +59,7 @@ export class GestionCandidatComponent implements OnInit {
         this.contentModal=element;
       }
     })
-    console.log('heree')
+
     console.log(this.contentModal)
   }
 }

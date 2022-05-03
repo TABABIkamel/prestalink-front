@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-lg-start">
-  <p class="mr-3">Are you ESN</p>
-  <label nz-checkbox [(ngModel)]="checked">Yes</label>
+  <p class="mr-3"><label class="border border-secondary p-1">Are you ESN</label></p>
+  <label class="p-1" nz-checkbox [(ngModel)]="checked">Yes</label>
 </div>
 
     <nz-collapse nzAccordion>
@@ -17,6 +17,7 @@
           </div>
         </div>
         <input  nz-input class="m-2" formControlName="nom" (change)="selectFile($event)"  type="file" placeholder="* File">
+
 <!--        <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">-->
 <!--          Upload-->
 <!--        </button>-->

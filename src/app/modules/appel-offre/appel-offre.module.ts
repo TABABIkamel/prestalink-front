@@ -18,34 +18,35 @@ import { MesCandidatureComponent } from '../../components/mes-candidature/mes-ca
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzMessageModule} from "ng-zorro-antd/message";
-import {NzSpinModule} from "ng-zorro-antd/spin";
-
-
+import { MesAppelOffreComponent } from '../../components/mes-appel-offre/mes-appel-offre.component';
+import { ViewContratComponent } from '../../components/view-contrat/view-contrat.component';
 
 @NgModule({
   declarations: [
     AppeloffreComponent,
     GestionCandidatComponent,
     CandidatureReviewedComponent,
-    MesCandidatureComponent
+    MesCandidatureComponent,
+    MesAppelOffreComponent,
+    ViewContratComponent
   ],
-  imports: [
-    CommonModule,
-    AppelOffreRoutingModule,
-    NgxPaginationModule,
-    SharedModule,
-    NzMessageModule,
-    NzButtonModule,
-    NzIconModule,
-    NzModalModule,
-    NzAlertModule,
-    NzCollapseModule,
-    NzDatePickerModule,
-    NzInputModule,
-    NzDividerModule,
-    NzTableModule,
-    NzSpinModule
-  ],
+    imports: [
+        CommonModule,
+        AppelOffreRoutingModule,
+        NgxPaginationModule,
+        SharedModule,
+        NzMessageModule,
+        NzButtonModule,
+        NzIconModule,
+        NzModalModule,
+        NzAlertModule,
+        NzCollapseModule,
+        NzDatePickerModule,
+        NzInputModule,
+        NzDividerModule,
+        NzTableModule,
+
+    ],
   exports: [AppeloffreComponent,GestionCandidatComponent]
 })
 export class AppelOffreModule { }

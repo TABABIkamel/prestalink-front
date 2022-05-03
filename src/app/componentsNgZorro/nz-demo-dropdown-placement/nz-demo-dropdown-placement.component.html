@@ -6,8 +6,11 @@
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li *ngIf="!keycloak.kc.authenticated" nz-menu-item (click)="onLogin()">Login</li>
-        <li *ngIf="keycloak.kc.authenticated" nz-menu-item (click)="OnLogout()">LogOut</li>
+        <li *ngIf="!keycloak.kc.authenticated" nz-menu-item (click)="onLogin()">login</li>
+        <li *ngIf="keycloak.kc.authenticated" nz-menu-item (click)="OnLogout()">logout</li>
+        <li *ngIf="keycloak.kc.authenticated" nz-menu-item [routerLink]="['modifierProfile',keycloak.getUsernameAuthenticatedUser()]" >modifier mon compte</li>
+        <li *ngIf="keycloak.kc.authenticated && !keycloak.isEsn" [routerLink]="['modifierCv',keycloak.getUsernameAuthenticatedUser()]" nz-menu-item >modifier mon cv</li>
+        <li *ngIf="keycloak.kc.authenticated" [routerLink]="['mesContrats',keycloak.getUsernameAuthenticatedUser()]" nz-menu-item >voir mes contrats</li>
       </ul>
     </nz-dropdown-menu>
 

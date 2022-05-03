@@ -9,21 +9,25 @@ import {CompleteProfileComponent} from "../../components/completeProfile/complet
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
+import {NzUploadModule} from "ng-zorro-antd/upload";
+import { ModifierProfileComponent } from '../../components/modifier-profile/modifier-profile.component';
+import { ModifierCvComponent } from '../../components/modifier-cv/modifier-cv.component';
 
 @NgModule({
-  declarations: [CompleteProfileComponent],
-  imports: [
-    CommonModule,
-    CompleteProfileRoutingModule,
-    NzAutocompleteModule,
-    FormsModule,
-    NzInputModule,
-    NzDatePickerModule,
-    NzCollapseModule,
-    ReactiveFormsModule,
-    NzIconModule,
-    NzCheckboxModule
-  ],
-  exports: [CompleteProfileComponent]
+  declarations: [CompleteProfileComponent, ModifierProfileComponent, ModifierCvComponent],
+    imports: [
+        CommonModule,
+        CompleteProfileRoutingModule,
+        NzAutocompleteModule,
+        FormsModule,
+        NzInputModule,
+        NzDatePickerModule,
+        NzCollapseModule,
+        ReactiveFormsModule,
+        NzIconModule,
+        NzCheckboxModule,
+        NzUploadModule
+    ],
+  exports: [CompleteProfileComponent,ModifierProfileComponent,ModifierCvComponent]
 })
 export class CompleteProfileModule { }
