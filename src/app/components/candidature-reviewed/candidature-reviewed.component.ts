@@ -52,8 +52,8 @@ export class CandidatureReviewedComponent implements OnInit {
     })
   }
 
-  getIsVisibleValue(value: boolean) {
-    this.isVisible = value;
+  getIsVisibleValue(value: any) {
+    this.isVisible = value[0];
   }
 
   handleCancel() {

@@ -21,7 +21,7 @@ interface Person {
   templateUrl: './table-basic.component.html'
 })
 export class TableBasicComponent {
-  @Output() isVisibleData = new EventEmitter<boolean>();
+  @Output() isVisibleData = new EventEmitter<[boolean,string]>();
   @Output() modalData = new EventEmitter<any>();
   @Output() reloadData = new EventEmitter<boolean>();
   @Input() isGestionCandidatComponent: boolean;
@@ -42,8 +42,8 @@ export class TableBasicComponent {
     private message: NzMessageService) {
   }
 
-  showModal(id: any) {
-    this.isVisibleData.emit(true)
+  showModal(id: any,name:string) {
+    this.isVisibleData.emit([true,name])
     this.modalData.emit(id);
   }
 
@@ -128,4 +128,6 @@ export class TableBasicComponent {
       // this.isHasContratAlertVisible=false
     }
   }
+
+
 }

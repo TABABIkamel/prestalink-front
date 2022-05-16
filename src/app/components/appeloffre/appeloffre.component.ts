@@ -139,7 +139,9 @@ export class AppeloffreComponent implements OnInit {
       this.idPost = id;
       this.isVisible = true;
       this.modalService.confirm({
-        nzTitle: '<i>Do you Want to apply for this candidate?</i>',
+        nzOkText: 'oui',
+        nzCancelText:'non',
+        nzTitle: '<i>voulez-vous postuler à cet appel offre ?</i>',
        // nzContent: '<b>Some descriptions</b>',
         nzOnOk: () => {this.postuler()}
       });

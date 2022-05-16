@@ -62,8 +62,8 @@ export class KeycloakService {
       clientId: 'prestalink-front',
     });
     await this.kc.init({
-      //onLoad: 'login-required',
-      onLoad: "check-sso",
+      onLoad: 'login-required',
+      //onLoad: "check-sso",
       //promiseType:"native"
     });
     //console.log(this.kc.token);

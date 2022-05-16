@@ -22,14 +22,14 @@
       <nz-divider nzType="vertical"></nz-divider>
       <i nz-icon title="refuser" nzType="close" (click)="refuserCandidat(data.id)" nzTheme="outline" style="font-size: 25px; color: #FB1923;cursor: pointer"></i>
 <!--      <button class="btn btn-danger" (click)="refuserCandidat(data.id)">Refuser</button>-->
-      <i title="display profile" (click)="showModal(data.id)"  class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
+      <i title="display profile" (click)="showModal(data.id,data.name)"  class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
          nzTheme="outline"></i>
     </td>
     <td *ngIf="!isGestionCandidatComponent">
       <div class="d-flex justify-content-between">
         <p>{{data.status}}</p>
         <i *ngIf="data.status=='ACCEPTED'" title="generate contract" (click)="showContratModal(data)" nz-icon nzType="download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
-        <i title="display profile"(click)="showModal(data.id)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
+        <i title="display profile"(click)="showModal(data.id,data.name)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
            nzTheme="outline"></i>
       </div>
     </td>

@@ -6,6 +6,7 @@ import {CandidatureReviewedComponent} from "../../components/candidature-reviewe
 import {MesCandidatureComponent} from "../../components/mes-candidature/mes-candidature.component";
 import {MesAppelOffreComponent} from "../../components/mes-appel-offre/mes-appel-offre.component";
 import {ViewContratComponent} from "../../components/view-contrat/view-contrat.component";
+import {FindProfilesComponent} from "../../components/find-profiles/find-profiles.component";
 
 const routes: Routes = [
   {path:'',component:AppeloffreComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'candidatEvalue',component:CandidatureReviewedComponent},
   {path:'mesCandidatures',component:MesCandidatureComponent},
   {path:'mesAppelOffres',component:MesAppelOffreComponent},
-  {path:'mesContrats/:username',component:ViewContratComponent}
+  {path:'mesContrats/:username',component:ViewContratComponent},
+  {path:'profils',component:FindProfilesComponent}
 ];
 
 @NgModule({

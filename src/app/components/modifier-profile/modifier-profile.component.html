@@ -1,8 +1,8 @@
-<div class="d-flex justify-content-around">
-  <div *ngIf="!keycloak.isEsn">
-    <img style="width: 250px;height: 250px" src="{{prestataire.imageLocation}}" class="mr-3 rounded">
+<div class="d-flex justify-content-center ">
+  <div *ngIf="!keycloak.isEsn" class="mr-3 mt-2">
+    <img style="width: 250px;height: 270px" src="{{prestataire.imageLocation}}" class="mr-3 rounded">
   </div>
-  <div *ngIf="keycloak.isEsn">
+  <div *ngIf="keycloak.isEsn" class="mr-3 mt-2">
     <img style="width: 250px;height: 250px" src="{{esn.imageLocation}}" class="mr-3 rounded">
   </div>
   <div *ngIf="!keycloak.isEsn">

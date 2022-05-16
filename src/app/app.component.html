@@ -39,7 +39,7 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Menu" nzIcon="dashboard">
+      <li *ngIf="keykcloak.isCompleted"  nz-submenu nzOpen nzTitle="Menu" nzIcon="dashboard">
         <ul >
           <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
 
@@ -61,6 +61,10 @@
 
             <a  routerLink="/appeloffre/mesCandidatures">mes candidatures</a>
           </li>
+          <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+
+            <a  routerLink="profils">trouver des profils</a>
+          </li>
 <!--          <li [nzDisabled] nz-menu-item nzMatchRouter>-->
 <!--            <a routerLink="/completeProfile">Post</a>-->
 <!--          </li>-->
@@ -81,7 +85,7 @@
         <span class="float-lg-right mr-3">
           <app-nz-demo-dropdown-placement></app-nz-demo-dropdown-placement>
         </span>
-        <span class="float-lg-right mr-5">
+        <span *ngIf="keykcloak.isCompleted" class="float-lg-right mr-5">
         <app-badge [notificationList]="notificationList" (reloadNotification)="reloadNotification($event)"></app-badge>
         </span>
       </div>

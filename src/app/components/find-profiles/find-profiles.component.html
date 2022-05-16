@@ -1,0 +1,112 @@
+
+<div class="mb-3">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <nz-select class="w-100" [(ngModel)]="tagValue" [nzSize]="size" nzMode="tags" nzPlaceHolder="Please select">
+      <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+    </nz-select>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon style="font-size: 25px;cursor: pointer" nzType="search" (click)="searchProfile()"></i>
+  </ng-template>
+
+
+</div>
+
+  <div class="search-results"
+       infinite-scroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollUpDistance]="1.5"
+       [infiniteScrollThrottle]="5"
+       (scrolled)="onScrollDown()"
+       >
+    <div class="d-flex justify-content-around flex-wrap text-center">
+    <div *ngFor="let profile of profiles" class="m-2">
+      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+
+        <nz-card-meta class="ml-2" nzTitle="{{profile?.profile_title}}"></nz-card-meta>
+      </nz-card>
+
+      <ng-template #coverTemplate>
+        <div>
+          <i (click)="showMadalProfile(profile)" title="consulter profile" class="m-2 float-right" nz-icon nzType="fullscreen" nzTheme="outline"
+             style="font-size: 25px; color: #08c;cursor: pointer"></i>
+        </div>
+        <img *ngIf="profile.imageProfileValid" class="rounded-circle" alt="example" src="{{profile.imgProfile}}"/>
+        <img *ngIf="!profile.imageProfileValid" class="rounded-circle" alt="example"
+             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrrxsxZSpsfebkw8VLXe6R5j7mryT6PK7Pg&usqp=CAU'/>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+  <nz-modal [nzWidth]="900"  [(nzVisible)]="isModalVisible"  nzOkText="ok" nzTitle="profile linkedIn de {{profile?.name}}" (nzOnCancel)="handleCancel()"
+            (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <div class="d-flex justify-content-between">
+        <div>
+          <img *ngIf="profile.imageProfileValid" class="rounded-circle" alt="example" src="{{profile.imgProfile}}"/>
+          <img *ngIf="!profile.imageProfileValid" class="rounded-circle" alt="example"
+               src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrrxsxZSpsfebkw8VLXe6R5j7mryT6PK7Pg&usqp=CAU'/>
+        </div>
+
+        <div >
+          <a href="{{profile.link}}" class="float-right" nz-button [nzSize]="size" nzType="link">
+            <i style="font-size: 25px; color: #08c;cursor: pointer" nz-icon nzType="linkedin" nzTheme="outline"></i>
+          </a>
+          <input class="m-2" placeholder="name" nz-input [(ngModel)]="profile.name"/>
+          <input class="m-2" placeholder="profile_title" nz-input [(ngModel)]="profile.profile_title"/>
+          <textarea readonly placeholder="aucune donnée" class="m-2" name="about" nz-input  [nzAutosize]="{ minRows: 4, maxRows: 50 }" [(ngModel)]="profile.about"></textarea>
+        </div>
+      </div>
+      <nz-collapse>
+        <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Educations'" >
+          <div class="m-3" >
+            <nz-collapse *ngFor="let education of profile.education ">
+              <nz-collapse-panel [nzActive]="true" [nzHeader]="'Education'" >
+               <div class="d-flex justify-content-between">
+                 <div>
+                   <img *ngIf="education[0]" class="rounded-circle" alt="photo école" src="{{education[0]}}"/>
+                   <img *ngIf="!education[0]" style="width: 150px;height: 150px" class="rounded-circle" alt="photo école" src="https://www.cvent-assets.com/brand-page-guestside-site/assets/images/venue-card-placeholder.png"/>
+                 </div>
+                 <div>
+                   <form class="form-group" >
+                     <input placeholder="aucune donnée" title="nom école" class="mr-2 mt-2" readonly value="{{education[1]}}"  nz-input />
+                     <input placeholder="aucune donnée" title="titre de diplome" class="mr-2 mt-2"  readonly value="{{education[2]}}"  nz-input />
+                     <input placeholder="aucune donnée" title="durée" class="mr-2 mt-2" readonly value="{{education[3]}}"  nz-input />
+                   </form>
+                 </div>
+               </div>
+              </nz-collapse-panel>
+            </nz-collapse>
+          </div>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <nz-collapse>
+        <nz-collapse-panel [nzActive]="true"  [nzHeader]="'Experiences'" >
+          <div class="m-3" >
+            <nz-collapse *ngFor="let experience of profile.experience ">
+              <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experience'" >
+                <div class="d-flex justify-content-between">
+                  <div class="mr-2">
+                    <img *ngIf="experience[0]" class="rounded-circle" alt="photo societé" src="{{experience[0]}}"/>
+                    <img *ngIf="!experience[0]" style="width: 150px;height: 150px" class="rounded-circle" alt="photo societé" src="https://www.cvent-assets.com/brand-page-guestside-site/assets/images/venue-card-placeholder.png"/>
+                  </div>
+                  <div>
+                    <form class="form-group" >
+                      <input placeholder="aucune donnée" title="titre poste" class="mr-2 mt-2" readonly value="{{experience[1]}}"  nz-input />
+                      <input placeholder="aucune donnée" title="nom societé" class="mr-2 mt-2"  readonly value="{{experience[2]}}"  nz-input />
+                      <input placeholder="aucune donnée" title="durée experience" class="mr-2 mt-2" readonly value="{{experience[3]}}"  nz-input />
+                      <input placeholder="aucune donnée" title="lieu experience" class="mr-2 mt-2" readonly value="{{experience[4]}}"  nz-input />
+                    </form>
+                  </div>
+                </div>
+              </nz-collapse-panel>
+            </nz-collapse>
+          </div>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </ng-container>
+  </nz-modal>
+<div  *ngIf="!profiles" >
+  <p class="text-center mt-5">aucune profile pour le moment</p>
+</div>

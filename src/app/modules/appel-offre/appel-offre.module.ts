@@ -20,6 +20,11 @@ import {NzTableModule} from "ng-zorro-antd/table";
 import {NzMessageModule} from "ng-zorro-antd/message";
 import { MesAppelOffreComponent } from '../../components/mes-appel-offre/mes-appel-offre.component';
 import { ViewContratComponent } from '../../components/view-contrat/view-contrat.component';
+import { FindProfilesComponent } from '../../components/find-profiles/find-profiles.component';
+import {NzCardModule} from "ng-zorro-antd/card";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {FormsModule} from "@angular/forms";
+import {NzSelectModule} from "ng-zorro-antd/select";
 
 @NgModule({
   declarations: [
@@ -28,25 +33,30 @@ import { ViewContratComponent } from '../../components/view-contrat/view-contrat
     CandidatureReviewedComponent,
     MesCandidatureComponent,
     MesAppelOffreComponent,
-    ViewContratComponent
+    ViewContratComponent,
+    FindProfilesComponent
   ],
-    imports: [
-        CommonModule,
-        AppelOffreRoutingModule,
-        NgxPaginationModule,
-        SharedModule,
-        NzMessageModule,
-        NzButtonModule,
-        NzIconModule,
-        NzModalModule,
-        NzAlertModule,
-        NzCollapseModule,
-        NzDatePickerModule,
-        NzInputModule,
-        NzDividerModule,
-        NzTableModule,
+  imports: [
+    CommonModule,
+    AppelOffreRoutingModule,
+    NgxPaginationModule,
+    SharedModule,
+    NzMessageModule,
+    NzButtonModule,
+    NzIconModule,
+    NzModalModule,
+    NzAlertModule,
+    NzCollapseModule,
+    NzDatePickerModule,
+    NzInputModule,
+    NzDividerModule,
+    NzTableModule,
+    NzCardModule,
+    InfiniteScrollModule,
+    FormsModule,
+    NzSelectModule,
 
-    ],
+  ],
   exports: [AppeloffreComponent,GestionCandidatComponent]
 })
 export class AppelOffreModule { }

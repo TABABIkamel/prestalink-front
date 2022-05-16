@@ -79,8 +79,13 @@ export class MesAppelOffreComponent implements OnInit {
   EditAo(idDto: number) {
     this.appelOffreService.getAoById(idDto)
       .subscribe(res=>{
+        console.log(res)
         this.drawerCreateComponent.appelOffre=res;
+        this.drawerCreateComponent.dateDebutEtFin.push([res.dateDebutAoDto,res.dateFinAoDto])
+          //.push([res.dateDebut,res.dateFin]);
       })
+    this.drawerCreateComponent.titleDrawer="modifer appel offre"
     this.drawerCreateComponent.visible=true;
+
   }
 }

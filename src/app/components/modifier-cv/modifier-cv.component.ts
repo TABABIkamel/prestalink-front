@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Education, Experience, Prestataire} from "../../Models/Prestataire";
 import {CompleteProfileService} from "../../services/complete-profile.service";
 import {ToastrService} from "ngx-toastr";
+import {KeycloakService} from "../../services/keycloak.service";
 class Option {
   label: string;
   value: string;
@@ -34,10 +35,10 @@ export class ModifierCvComponent implements OnInit {
     {label: 'doctorat', value: 'doctorat'}
   ];
   dateFormat = 'yyyy/MM/dd';
-  constructor(private toastr: ToastrService,private completeProfile:CompleteProfileService) { }
+  constructor(private toastr: ToastrService,private completeProfile:CompleteProfileService,private keycloak:KeycloakService) { }
   option:Option=new Option()
   ngOnInit(): void {
-    this.completeProfile.getPrestataireWithHisCvByUsername("tababi")
+    this.completeProfile.getPrestataireWithHisCvByUsername(this.keycloak.getUsernameAuthenticatedUser())
       .subscribe(res=>
       {
         console.log(res)

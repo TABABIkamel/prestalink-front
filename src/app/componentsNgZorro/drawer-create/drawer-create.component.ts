@@ -13,11 +13,14 @@ export class DrawerCreateComponent {
   appelOffre:AppelOffre=new AppelOffre();
   @Input() nameOfParentComponent:string;
   visible = false;
-  dateAo: Date[];
+  dateDebutEtFin: Date[][] = new Array();
+  titleDrawer:string;
 constructor(private appelOffreService:AppelOffreService,private toastr: ToastrService,private route:Router) {
 }
   open(): void {
+    this.titleDrawer="ajouter appel offre";
     this.visible = true;
+
   }
 
   close(): void {
@@ -29,6 +32,9 @@ constructor(private appelOffreService:AppelOffreService,private toastr: ToastrSe
     //this.appelOffre.dateFinAoDto=this.dateAo[1]
     console.log(this.appelOffre)
     if(this.nameOfParentComponent=="mesAppelOffres"){
+      this.appelOffre.dateDebutAoDto=this.dateDebutEtFin[0][0]
+      this.appelOffre.dateFinAoDto=this.dateDebutEtFin[0][1]
+      console.log(this.appelOffre)
       this.appelOffreService.editAo(this.appelOffre)
         .subscribe(res=>{
           this.toastr.success("","appel offre a été modifié")
@@ -39,11 +45,11 @@ constructor(private appelOffreService:AppelOffreService,private toastr: ToastrSe
         })
 
     }else{
-      this.appelOffre.dateDebutAoDto=this.dateAo[0]
-      this.appelOffre.dateFinAoDto=this.dateAo[1]
+      this.appelOffre.dateDebutAoDto=this.dateDebutEtFin[0][0]
+      this.appelOffre.dateFinAoDto=this.dateDebutEtFin[0][1]
     this.appelOffreService.createAo(this.appelOffre).subscribe((res)=>{
       this.appelOffre=new AppelOffre()
-      this.dateAo=[new Date(),new Date()]
+      this.dateDebutEtFin=[]
       this.toastr.success("","appel offre a été crée")
       this.appelOffre=new AppelOffre();
       this.route.routeReuseStrategy.shouldReuseRoute = () => false;
