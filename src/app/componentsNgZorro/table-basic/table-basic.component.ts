@@ -98,7 +98,7 @@ export class TableBasicComponent {
       setTimeout(()=>{
         this.spinner.hide().then()
         this.reloadData.emit(true)
-        this.toastr.success("Done",`contrat enregistré sous c:/prestalink/${this.keycloak.getUsernameAuthenticatedUser()}`)
+        this.toastr.success("Done",`contrat a été généré`)
       },3000)
       console.log(res)
     }, err => {

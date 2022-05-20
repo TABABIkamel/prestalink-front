@@ -1,4 +1,4 @@
-    <a *ngIf="keycloak.isCompleted" style="font-size: 14px; color: #0A0A0A" nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="true" [(nzVisible)]="visible">
+    <a  style="font-size: 14px; color: #0A0A0A" nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="true" [(nzVisible)]="visible">
       {{keycloak.getNameAuthenticatedUser()}}
 <!--      <i nz-icon nzType="user" style="font-size: 20px; color: #08c;cursor: pointer"></i>-->
 <!--      <img src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png">-->
@@ -7,7 +7,7 @@
     <nz-dropdown-menu #menu="nzDropdownMenu" >
       <ul nz-menu>
         <li *ngIf="!keycloak.kc.authenticated && keycloak.isCompleted" nz-menu-item (click)="onLogin()">login</li>
-        <li *ngIf="keycloak.kc.authenticated && keycloak.isCompleted" nz-menu-item (click)="OnLogout()">logout</li>
+        <li *ngIf="keycloak.kc.authenticated" nz-menu-item (click)="OnLogout()">logout</li>
         <li *ngIf="keycloak.kc.authenticated && keycloak.isCompleted" nz-menu-item [routerLink]="['modifierProfile',keycloak.getUsernameAuthenticatedUser()]" >modifier mon compte</li>
         <li *ngIf="keycloak.kc.authenticated && !keycloak.isEsn && keycloak.isCompleted" [routerLink]="['modifierCv',keycloak.getUsernameAuthenticatedUser()]" nz-menu-item >modifier mon cv</li>
         <li *ngIf="keycloak.kc.authenticated && keycloak.isCompleted" [routerLink]="['mesContrats',keycloak.getUsernameAuthenticatedUser()]" nz-menu-item >voir mes contrats</li>

@@ -57,7 +57,7 @@ export class KeycloakService {
   public async init() {
     console.log('test if le service est chargé');
     this.kc = new Keycloak({
-      url: 'http://localhost:8090/auth/',
+      url: 'http://10.1.13.5:8090/auth/',
       realm: 'prestalink-realm',
       clientId: 'prestalink-front',
     });
