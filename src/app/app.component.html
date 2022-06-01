@@ -39,31 +39,35 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li *ngIf="keykcloak.isCompleted"  nz-submenu nzOpen nzTitle="Menu" nzIcon="dashboard">
+      <li *ngIf="keykcloak.isCompleted || keykcloak.isManager()"  nz-submenu nzOpen nzTitle="Menu" nzIcon="dashboard">
         <ul >
-          <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isCompleted && !keykcloak.isManager()"  nz-menu-item nzMatchRouter>
 
            <a  routerLink="/appeloffre">acceuil</a>
           </li>
-          <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isEsn && !keykcloak.isManager()"   nz-menu-item nzMatchRouter>
 
             <a  routerLink="/mesAppelOffres">mes appel offres</a>
           </li>
-          <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isEsn && !keykcloak.isManager()"   nz-menu-item nzMatchRouter>
 
             <a  routerLink="/appeloffre/gestionCandidat">mes candidats</a>
           </li>
-          <li *ngIf="keykcloak.isEsn" [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isEsn && !keykcloak.isManager()"  nz-menu-item nzMatchRouter>
 
             <a  routerLink="/appeloffre/candidatEvalue">candidats evalues</a>
           </li>
-          <li  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isCompleted && !keykcloak.isManager()"  nz-menu-item nzMatchRouter>
 
             <a  routerLink="/appeloffre/mesCandidatures">mes candidatures</a>
           </li>
-          <li *ngIf="keykcloak.isEsn"  [nzDisabled]="!keykcloak.isCompleted" nz-menu-item nzMatchRouter>
+          <li *ngIf="keykcloak.isEsn && !keykcloak.isManager()"   nz-menu-item nzMatchRouter>
 
             <a  routerLink="profils">trouver des profils</a>
+          </li>
+          <li *ngIf="keykcloak.isManager()"  nz-menu-item nzMatchRouter>
+
+            <a  routerLink="startScrapping">lancer scrapping</a>
           </li>
 <!--          <li [nzDisabled] nz-menu-item nzMatchRouter>-->
 <!--            <a routerLink="/completeProfile">Post</a>-->

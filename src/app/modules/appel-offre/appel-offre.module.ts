@@ -23,8 +23,11 @@ import { ViewContratComponent } from '../../components/view-contrat/view-contrat
 import { FindProfilesComponent } from '../../components/find-profiles/find-profiles.component';
 import {NzCardModule} from "ng-zorro-antd/card";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzGridModule} from "ng-zorro-antd/grid";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 
 @NgModule({
   declarations: [
@@ -55,6 +58,10 @@ import {NzSelectModule} from "ng-zorro-antd/select";
     InfiniteScrollModule,
     FormsModule,
     NzSelectModule,
+    ReactiveFormsModule,
+    NzGridModule,
+    NzFormModule,
+    NzInputNumberModule,
 
   ],
   exports: [AppeloffreComponent,GestionCandidatComponent]

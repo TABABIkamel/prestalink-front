@@ -55,12 +55,11 @@ export class AppeloffreComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.keycloakService.isManager())
     this.appelOffreService.getAllAo().subscribe((res) => {
-      console.log(res)
       let pipes = new DatePipe('fr_FR');
       res.dateDebutAoDto = pipes.transform(res.dateDebutAoDto, 'yyyy-MM-dd')
       this.appelOffres = res
-      console.log()
       this.appelOffres.map(ao => {
         if(this.keycloakService.getUsernameAuthenticatedUser()==ao.esnUsernameRepresentant){
           ao.isProprietaire=true
@@ -70,15 +69,12 @@ export class AppeloffreComponent implements OnInit {
       })
 
       if (this.keycloakService.isEsn) {
-        console.log(this.appelOffres[0].usernameEsns)
         this.appelOffres.map(ao => {
           ao.isPostuled = ao.usernameEsns.includes(this.keycloakService.getUsernameAuthenticatedUser());
-          console.log(ao.isPostuled)
         })
       } else {
         this.appelOffres.map(ao => {
           ao.isPostuled = ao.usernamePrestataires.includes(this.keycloakService.getUsernameAuthenticatedUser());
-          console.log(ao.isPostuled)
         })
       }
 
@@ -93,23 +89,13 @@ export class AppeloffreComponent implements OnInit {
     })
   }
 
-  // showDatail(description:string,titrePoste:string) {
-  //   this.modal.modalTitle=titrePoste
-  //   this.modal.content=description
-  //   this.modal.showModal();
-  //
-  // }
   postuler = () => {
     this.candidature.idPost = this.idPost;
     this.candidature.username = this.keycloakService.getUsernameAuthenticatedUser();
     this.candidature.name = this.keycloakService.getNameAuthenticatedUser();
-    console.log(this.candidature);
     this.appelOffreService.Postuler(this.candidature).subscribe(
       (res) => {
-      console.log(res)
-        this.toastr.success("congratulation","vous avez postulé à cette appel offre avec success")
-        // this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-        // this.route.onSameUrlNavigation = 'reload';
+        this.toastr.success("","candidature envoyée")
         this.ngOnInit();
       },
       (error => console.log(error)))
@@ -133,7 +119,6 @@ export class AppeloffreComponent implements OnInit {
     else if(isProprietaire)
       this.message.info('vous êtes le propriétaire de cette offre, vous ne pouvez pas postuler')
     else{
-      console.log(isPostuled)
       this.isPostuled = isPostuled
       this.isProprietaire=isProprietaire
       this.idPost = id;

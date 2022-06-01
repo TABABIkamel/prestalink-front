@@ -18,10 +18,8 @@ export class KeycloakService {
   functionCalledWhenUserIsEsn(res:any){
       if(res) {
         this.isEsn=true
-        console.log('in if 1')
         if (!res?.completed) {
           this.route.navigateByUrl('completeProfile')
-          console.log('in if 2')
         } else {
           this.isCompleted = true
           this.route.navigateByUrl('appeloffre')
@@ -29,10 +27,7 @@ export class KeycloakService {
       }
   }
   functionCalledWhenUserIsPrestataire(res:any){
-    console.log('in else 1')
     if(!res?.completed){
-      console.log(res)
-      console.log('in else 2')
       this.route.navigateByUrl('completeProfile')
     }else {
       this.isCompleted=true
@@ -41,7 +36,6 @@ export class KeycloakService {
     }
   }
   functionCalledWhenUserIsNotEsn(err:any){
-    console.log('in error')
     this.http.get<Prestataire>(`http://localhost:8089/api/ao/checkIfProfilePrestataireCompleted/${this.kc.tokenParsed?.preferred_username}`,this.httpOptions)
       .subscribe(res=>{
         this.functionCalledWhenUserIsPrestataire(res)
@@ -50,14 +44,13 @@ export class KeycloakService {
       })
   }
   functionCalledWhenUserIsNotEsnAndNotPrestataire(err:any){
-    console.log('in error prestataire')
     this.route.navigateByUrl('completeProfile')
   }
 
   public async init() {
     console.log('test if le service est chargé');
     this.kc = new Keycloak({
-      url: 'http://10.1.13.5:8090/auth/',
+      url: 'http://host.docker.internal:8090/auth/',
       realm: 'prestalink-realm',
       clientId: 'prestalink-front',
     });
@@ -68,12 +61,15 @@ export class KeycloakService {
     });
     //console.log(this.kc.token);
     //console.log('token after')
-    console.log(this.kc.tokenParsed?.preferred_username)
 
       this.http.get<Esn>(`http://localhost:8089/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`, this.httpOptions)
         .subscribe((res) => {
           this.functionCalledWhenUserIsEsn(res)
         }, (err) => {
+          if(this.isManager()){
+            this.route.navigateByUrl('startScrapping')
+            return;
+          }
           this.functionCalledWhenUserIsNotEsn(err)
         })
 
@@ -91,10 +87,7 @@ export class KeycloakService {
   public get_family_name_authenticatedUser(){
     return this.kc.tokenParsed?.family_name
   }
-  // public getSuppliers(){
-  //   return this.http.get("http://localhost:8083/suppliers")
-  // }
   public isManager():boolean{
-    return this.kc.hasResourceRole("ADMIN")
+    return this.kc.hasRealmRole('ADMIN')
   }
 }

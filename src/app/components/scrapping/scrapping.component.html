@@ -1,0 +1,10 @@
+<div class="mb-3">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <nz-select class="w-100" [(ngModel)]="tagValue" [nzSize]="size" nzMode="tags" nzPlaceHolder="Please select">
+      <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+    </nz-select>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon style="font-size: 25px;cursor: pointer" nzType="search" (click)="startCrapping()"></i>
+  </ng-template>
+</div>

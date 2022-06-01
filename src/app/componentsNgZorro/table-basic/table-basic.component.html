@@ -22,14 +22,14 @@
       <nz-divider nzType="vertical"></nz-divider>
       <i nz-icon title="refuser" nzType="close" (click)="refuserCandidat(data.id)" nzTheme="outline" style="font-size: 25px; color: #FB1923;cursor: pointer"></i>
 <!--      <button class="btn btn-danger" (click)="refuserCandidat(data.id)">Refuser</button>-->
-      <i title="display profile" (click)="showModal(data.id,data.name)"  class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
+      <i title="display profile" (click)="showModal(data.id,data.name,data.lieu)"  class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
          nzTheme="outline"></i>
     </td>
     <td *ngIf="!isGestionCandidatComponent">
       <div class="d-flex justify-content-between">
         <p>{{data.status}}</p>
         <i *ngIf="data.status=='ACCEPTED'" title="generate contract" (click)="showContratModal(data)" nz-icon nzType="download" style="font-size: 25px; color: #08c;cursor:pointer" nzTheme="outline"></i>
-        <i title="display profile"(click)="showModal(data.id,data.name)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
+        <i title="display profile"(click)="showModal(data.id,data.name,data.lieu)" class="float-right" nz-icon style="font-size: 25px; color: #08c;cursor: pointer" nzType="eye"
            nzTheme="outline"></i>
       </div>
     </td>
@@ -37,19 +37,99 @@
     <nz-modal [nzWidth]="900"  [(nzVisible)]="isFormContractVisible"  nzOkText="Générer" nzTitle="informations de contrat" (nzOnCancel)="handleCancel()"
               (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <input class="m-2" placeholder="nom esn" nz-input [(ngModel)]="contract.nomSocieteClient"  />
-        <input class="m-2" placeholder="capital esn" nz-input [(ngModel)]="contract.capitaleSocieteClient"/>
-        <input class="m-2" placeholder="lieu siege esn" nz-input [(ngModel)]="contract.lieuSiegeClient" />
-        <input class="m-2" placeholder="numero regitre commerce esn" nz-input [(ngModel)]="contract.numeroRegitreCommerceClient"/>
+        <form nz-form [nzAutoTips]="autoTips" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>nomSocieteClient</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="nomSocieteClient" placeholder="nom esn" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>capital esn</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="capitaleSocieteClient" placeholder="capital esn" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>lieu siege</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="lieuSiegeClient" placeholder="lieu siege esn" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>numero regitre commerce</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="numeroRegitreCommerceClient" placeholder="numero regitre commerce esn" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>nom representant de societe</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="nomRepresentantSocieteClient" placeholder="nom representant de societe" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>nom prestataire</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="nomPrestataire" placeholder="nom prestataire" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>prénom prestataire</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="prenomPrestataire" placeholder="prénom prestataire" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>lieu prestataire</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="lieuPrestataire" placeholder="lieu prestataire" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>cin</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="cin" placeholder="cin prestataire" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>preambule</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="preambule" placeholder="Rappeler ici, en quelques lignes, les raisons qui motivent l'accord intervenu. Ceci peut être utile ultérieurement pour l'interprétation du contrat" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>prix totale de mission</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="prixTotaleMission" placeholder="prix totalede mission" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>penalisation par jour</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+              <input nz-input formControlName="penalisationParJour" placeholder="penalisation par jour" />
+            </nz-form-control>
+          </nz-form-item>
 
-        <input class="m-2" placeholder="nom representant de societe" nz-input [(ngModel)]="contract.nomRepresentantSocieteClient" />
-        <input class="m-2" placeholder="nom prestataire" nz-input [(ngModel)]="contract.nomPrestataire"/>
-        <input class="m-2" placeholder="prénom prestataire" nz-input [(ngModel)]="contract.prenomPrestataire" />
-        <input class="m-2" placeholder="lieu prestataire" nz-input [(ngModel)]="contract.lieuPrestataire"/>
-        <input class="m-2" placeholder="cin prestataire" nz-input [(ngModel)]="contract.cin"/>
-        <textarea class="m-2" name="preambule" nz-input placeholder="Rappeler ici, en quelques lignes, les raisons qui motivent l'accord intervenu. Ceci peut être utile ultérieurement pour l'interprétation du contrat" [nzAutosize]="{ minRows: 4, maxRows: 50 }" [(ngModel)]="contract.preambule"></textarea>
-        <input class="m-2" placeholder="prix totalede mission" nz-input [(ngModel)]="contract.prixTotaleMission"/>
-        <input class="m-2" placeholder="penalisation par jour" nz-input [(ngModel)]="contract.penalisationParJour"/>
+<!--        <input class="m-2" placeholder="nom esn" nz-input-->
+<!--               name="nomSocieteClient"-->
+<!--               [class.is-invalid]="isControlInvalid('nomSocieteClient')"-->
+<!--               [class.is-valid]="isControlValid('nomSocieteClient')"-->
+<!--               formControlName="nomSocieteClient"-->
+<!--        />-->
+<!--        <input class="m-2" placeholder="capital esn" nz-input [(ngModel)]="contract.capitaleSocieteClient"/>-->
+<!--        <input class="m-2" placeholder="lieu siege esn" nz-input [(ngModel)]="contract.lieuSiegeClient" />-->
+<!--        <input class="m-2" placeholder="numero regitre commerce esn" nz-input [(ngModel)]="contract.numeroRegitreCommerceClient"/>-->
+
+<!--        <input class="m-2" placeholder="nom representant de societe" nz-input [(ngModel)]="contract.nomRepresentantSocieteClient" />-->
+<!--        <input class="m-2" placeholder="nom prestataire" nz-input [(ngModel)]="contract.nomPrestataire"/>-->
+<!--        <input class="m-2" placeholder="prénom prestataire" nz-input [(ngModel)]="contract.prenomPrestataire" />-->
+<!--        <input class="m-2" placeholder="lieu prestataire" nz-input [(ngModel)]="contract.lieuPrestataire"/>-->
+<!--        <input class="m-2" placeholder="cin prestataire" nz-input [(ngModel)]="contract.cin"/>-->
+<!--        <textarea class="m-2" name="preambule" nz-input placeholder="Rappeler ici, en quelques lignes, les raisons qui motivent l'accord intervenu. Ceci peut être utile ultérieurement pour l'interprétation du contrat" [nzAutosize]="{ minRows: 4, maxRows: 50 }" [(ngModel)]="contract.preambule"></textarea>-->
+<!--        <input class="m-2" placeholder="prix totalede mission" nz-input [(ngModel)]="contract.prixTotaleMission"/>-->
+<!--        <input class="m-2" placeholder="penalisation par jour" nz-input [(ngModel)]="contract.penalisationParJour"/>-->
+        </form>
       </ng-container>
     </nz-modal>
 

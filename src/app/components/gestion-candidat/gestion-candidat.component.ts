@@ -49,7 +49,7 @@ export class GestionCandidatComponent implements OnInit {
   }
 
   getIsVisibleValue(value:any){
-    this.trouverProfileService.getProfileLinkedIn(value[1])
+    this.trouverProfileService.getProfileLinkedIn(value[1],value[2])
       .subscribe(res=>{
         console.log(res)
         this.trouverProfileService.getProfileLinkedInScrapper({'link':res})
@@ -86,7 +86,7 @@ export class GestionCandidatComponent implements OnInit {
 
 
   getIsMadalLinkedInVisibleValue($event: any) {
-    this.trouverProfileService.getProfileLinkedIn($event[1]).subscribe(res=>{
+    this.trouverProfileService.getProfileLinkedIn($event[1],$event[2]).subscribe(res=>{
       console.log(res)
       // this.profile=res
     },error => console.log(error))

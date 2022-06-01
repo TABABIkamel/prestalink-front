@@ -1,16 +1,65 @@
-
-<div class="mb-3">
-  <nz-input-group [nzSuffix]="suffixIconSearch">
-    <nz-select class="w-100" [(ngModel)]="tagValue" [nzSize]="size" nzMode="tags" nzPlaceHolder="Please select">
-      <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-    </nz-select>
-  </nz-input-group>
-  <ng-template #suffixIconSearch>
-    <i nz-icon style="font-size: 25px;cursor: pointer" nzType="search" (click)="searchProfile()"></i>
-  </ng-template>
-
-
+<div class="d-flex justify-content-center mb-2">
+  <button  nz-button [nzType]="'primary'" (click)="showModal()"><span>chercher des profiles</span></button>
 </div>
+<nz-modal [nzWidth]="1000" [(nzVisible)]="isVisible" nzTitle="citer vos criteres de recherche" (nzOnCancel)="handleCancelSearchModal()" (nzOnOk)="handleOkSearchModal()">
+  <ng-container *nzModalContent>
+    <div class="d-flex justify-content-center mb-3">
+      <label class="mr-2 mt-1">nomber de profile à afficher *</label>
+      <nz-input-number [(ngModel)]="profilesNumber" [nzMin]="1"  [nzStep]="1"></nz-input-number>
+    </div>
+    <nz-collapse>
+      <nz-collapse-panel  [nzHeader]="'Experience'" >
+        <i style="font-size: 15px; color: #08c;" class=" float-right"  (click)="addSouSectionExperience()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
+        <i style="font-size: 15px; color: #08c;" nz-icon nzType="minus-circle"  (click)="removeSouSectionExperience()" nzTheme="outline"></i>
+        <div class="m-3" >
+          <nz-collapse>
+            <nz-collapse-panel *ngFor="let p of nomberSousSectionExperience;let i = index" [nzHeader]="'Experience'">
+              <form  [formGroup]="formsExperience[i]" class="form-group" >
+
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>titre de poste</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                    <input nz-input formControlName="titrePoste" placeholder="titre de poste" />
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>nom societe</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                    <input nz-input formControlName="nomSociete" placeholder="nom societe" />
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>durée experience</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                    <input nz-input formControlName="dureeExperience" placeholder="durée experience" />
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="7" nzRequired>lieu experience</nz-form-label>
+                  <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                    <input nz-input formControlName="locationExperience" placeholder="lieu de poste" />
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </ng-container>
+</nz-modal>
+<!--<div class="mb-3">-->
+<!--  <nz-input-group [nzSuffix]="suffixIconSearch">-->
+<!--    <nz-select class="w-100" [(ngModel)]="tagValue" [nzSize]="size" nzMode="tags" nzPlaceHolder="Please select">-->
+<!--      <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>-->
+<!--    </nz-select>-->
+<!--  </nz-input-group>-->
+<!--  <ng-template #suffixIconSearch>-->
+<!--    <i nz-icon style="font-size: 25px;cursor: pointer" nzType="search" (click)="searchProfile()"></i>-->
+<!--  </ng-template>-->
+
+
+<!--</div>-->
 
   <div class="search-results"
        infinite-scroll

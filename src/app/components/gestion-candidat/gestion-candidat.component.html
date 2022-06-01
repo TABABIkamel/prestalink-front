@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-center">
     <div class="mr-2">
       <p class="font-weight-bold font-italic lead">Curriculum Vitae</p>
-      <nz-collapse nzAccordion>
+      <nz-collapse nzAccordion [nzBordered]="true">
 
             <!--      <nz-collapse-panel (click)="dispaly()" *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active">-->
             <!--        <input type="text" placeholder="text1">-->
@@ -57,7 +57,7 @@
             </nz-collapse>
           </nz-collapse>
     </div>
-      <div>
+      <div *ngIf="profile">
         <p class="font-weight-bold font-italic lead">linkedIn</p>
         <div class="d-flex justify-content-between">
           <div>
@@ -122,6 +122,10 @@
             </div>
           </nz-collapse-panel>
         </nz-collapse>
+      </div>
+      <div *ngIf="!profile" class="w-50">
+        <p class="font-weight-bold font-italic lead ml-2">linkedIn</p>
+        <p class="ml-4">profile Linkedin non récupéré</p>
       </div>
     </div>
   </ng-container>
