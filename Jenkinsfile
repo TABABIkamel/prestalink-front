@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('tests static') {
             steps {
-                bat " sonar-scanner.bat -D"sonar.projectKey=prestalink-front" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=1ce2ccf9866d803f0d60d3608ab236ef347f0d47" "
+                bat "sonar-scanner.bat -D sonar.projectKey=prestalink-front -D sonar.sources=. -D sonar.host.url=http://localhost:9000 -D sonar.login=1ce2ccf9866d803f0d60d3608ab236ef347f0d47"
             }
         }
         stage('livraison') {      
