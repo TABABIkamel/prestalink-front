@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class TrouverProfileService {
-  uri:String='http://localhost:5000/'
+  uri:String='http://localhost:8765/profils-service/'
   httpOptions = { headers: new HttpHeaders({
       'Content-Type': 'application/json'})}
 

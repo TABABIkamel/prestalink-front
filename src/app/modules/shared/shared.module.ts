@@ -36,13 +36,14 @@ import { BadgeComponent } from '../../componentsNgZorro/badge/badge.component';
 import {NzBadgeModule} from "ng-zorro-antd/badge";
 import {NzListModule} from "ng-zorro-antd/list";
 import { SpinnerComponent } from '../../componentsNgZorro/spinner/spinner.component';
+import { NotifComponent } from '../../componentsNgZorro/notif/notif.component';
 //import {NzNotificationModule} from "ng-zorro-antd/notification";
 
 
 
 
 @NgModule({
-  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent, SpinnerComponent],
+  declarations: [DatePickerComponent,FormComponent,InputAutoCompleteComponent,NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent, SpinnerComponent, NotifComponent],
     imports: [
         CommonModule,
         SharedRoutingModule,
@@ -71,6 +72,6 @@ import { SpinnerComponent } from '../../componentsNgZorro/spinner/spinner.compon
         NzListModule,
       PerfectScrollbarModule
     ],
-    exports: [DatePickerComponent, FormComponent, InputAutoCompleteComponent, NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent,SpinnerComponent]
+    exports: [DatePickerComponent, FormComponent, InputAutoCompleteComponent, NzDemoDropdownPlacementComponent, MoadalBasicComponent, CardComponent, TableBasicComponent, DrawerCreateComponent, BadgeComponent, SpinnerComponent, NotifComponent]
 })
 export class SharedModule { }

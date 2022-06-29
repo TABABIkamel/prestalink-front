@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class NotificationService {
-  uri:String='http://localhost:8089/api/ao/'
+  uri:String='http://localhost:8765/ao-service/api/ao/'
   httpOptions = { headers: new HttpHeaders({
       'Content-Type': 'application/json'})}
 

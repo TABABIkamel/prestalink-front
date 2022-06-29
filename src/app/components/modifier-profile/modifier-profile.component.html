@@ -6,25 +6,95 @@
     <img style="width: 250px;height: 250px" src="{{esn.imageLocation}}" class="mr-3 rounded">
   </div>
   <div *ngIf="!keycloak.isEsn">
-    <form class="form-group d-flex flex-column">
-      <input title="nom"style="width: 400px" class="mr-2 mt-2" name="nom" [(ngModel)]="prestataire.nom" nz-input/>
-      <input title="prenom" style="width: 400px" class="mr-2 mt-2" name="prenom" [(ngModel)]="prestataire.prenom" nz-input/>
-      <input title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="prestataire.email" nz-input/>
-      <input title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="prestataire.rib" nz-input/>
-      <input title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="prestataire.iban" nz-input/>
-      <input title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="prestataire.lieu" nz-input/>
-      <input style="width: 400px" title="profession" class="mr-2 mt-2" name="profession" [(ngModel)]="prestataire.profession" nz-input/>
+    <form nz-form [nzAutoTips]="autoTips"  [formGroup]="formGroup" class="form-group d-flex flex-column">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>nom</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="nom" title="nom"style="width: 400px" class="mr-2 mt-2" name="nom" [(ngModel)]="prestataire.nom" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>prenom</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="prenom" title="prenom" style="width: 400px" class="mr-2 mt-2" name="prenom" [(ngModel)]="prestataire.prenom" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>email</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="email"  title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="prestataire.email" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>RIB</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input (keypress)="isNumericOnly($event) && onKeyPress($event)" formControlName="rib" title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="prestataire.rib" nz-input/>
+        </nz-form-control>
+<!--        <div *ngIf="formGroup.controls['rib'].invalid ">-->
+
+<!--          <span class="errorRequiredStyleForColumns">حقل لا يقبل إلا الأرقام</span>-->
+
+<!--        </div>-->
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>IBAN</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input (keypress)="isNumericOnly($event) && onKeyPress($event)" formControlName="iban" title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="prestataire.iban" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>lieu</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="lieu" title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="prestataire.lieu" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>profession</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="profession" style="width: 400px" title="profession" class="mr-2 mt-2" name="profession" [(ngModel)]="prestataire.profession" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
     </form>
     <button class="btn-primary float-right mt-3 rounded" (click)="modifierPrestataireProfile()">modifier compte</button>
   </div>
 
   <div *ngIf="keycloak.isEsn">
-    <form class="form-group d-flex flex-column">
-      <input title="nom"style="width: 400px" class="mr-2 mt-2" name="nom" [(ngModel)]="esn.nonEsn" nz-input/>
-      <input title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="esn.email" nz-input/>
-      <input title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="esn.rib" nz-input/>
-      <input title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="esn.iban" nz-input/>
-      <input title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="esn.lieu" nz-input/>
+    <form nz-form [nzAutoTips]="autoTips"  [formGroup]="formGroupEsn" class="form-group d-flex flex-column">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>nom ESN</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="nomEsn" title="nom de votre ESN"style="width: 400px" class="mr-2 mt-2" name="nomEsn" [(ngModel)]="esn.nonEsn" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>email</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="email"  title="email" style="width: 400px" class="mr-2 mt-2" name="email" [(ngModel)]="esn.email" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>RIB</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input (keypress)="isNumericOnly($event) && onKeyPress($event)" formControlName="rib" title="RIB" style="width: 400px" class="mr-2 mt-2" name="rib" [(ngModel)]="esn.rib" nz-input/>
+        </nz-form-control>
+        <!--        <div *ngIf="formGroup.controls['rib'].invalid ">-->
+
+        <!--          <span class="errorRequiredStyleForColumns">حقل لا يقبل إلا الأرقام</span>-->
+
+        <!--        </div>-->
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>IBAN</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input (keypress)="isNumericOnly($event) && onKeyPress($event)" formControlName="iban" title="IBAN" style="width: 400px" class="mr-2 mt-2" name="iban" [(ngModel)]="esn.iban" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>lieu</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input formControlName="lieu" title="lieu" style="width: 400px" class="mr-2 mt-2" name="lieu" [(ngModel)]="esn.lieu" nz-input/>
+        </nz-form-control>
+      </nz-form-item>
     </form>
     <button class="btn-primary float-right mt-3 rounded" (click)="modifierEsnProfile()">modifier compte</button>
   </div>

@@ -10,24 +10,26 @@ import {Observable} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzUploadChangeParam, NzUploadFile} from "ng-zorro-antd/upload";
 import {MyValidators} from "../../validators/FormValidators";
+
 interface Option {
   label: string;
   value: string;
 }
+
 @Component({
   selector: 'app-complete-profile',
   templateUrl: './complete-profile.component.html'
 })
-export class CompleteProfileComponent implements OnInit{
-  fileList1:NzUploadFile[] = [];
-  educationData:Education=new Education()
-  experienceData:Experience=new Experience()
+export class CompleteProfileComponent implements OnInit {
+  fileList1: NzUploadFile[] = [];
+  educationData: Education = new Education()
+  experienceData: Experience = new Experience()
   profileEsn: FormGroup;
   profilePrestataire: FormGroup;
   education: FormGroup;
-  formsEducation:FormGroup[] = new Array()
+  formsEducation: FormGroup[] = new Array()
   experience: FormGroup;
-  formsExperience:FormGroup[] = new Array()
+  formsExperience: FormGroup[] = new Array()
   selectedFiles?: FileList;
   currentFile: File;
   progress = 0;
@@ -59,55 +61,56 @@ export class CompleteProfileComponent implements OnInit{
   typeDiplome: string
   prestataire = new Prestataire();
   esn = new Esn();
+
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
   }
 
-  constructor(private formBuilder: FormBuilder,private toastr: ToastrService, private completeProfileService: CompleteProfileService, private route: Router, private keycloakService: KeycloakService, private msg: NzMessageService) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private completeProfileService: CompleteProfileService, private route: Router, private keycloakService: KeycloakService, private msg: NzMessageService) {
   }
 
-loadFormPersonelDataForEsn(){
-  const { required, maxLength, minLength } = MyValidators;
-  this.profileEsn = this.formBuilder.group({
-    nonEsn: ["", [required, maxLength(20), minLength(2)]],
-    imageEsn: ["", [required]],
-    email: ["", [Validators.email,required]],
-    rib: ["", [required, maxLength(20), minLength(20)]],
-    iban: ["", [required, maxLength(6), minLength(6)]],
-    lieu: ["", [required, maxLength(20), minLength(2)]],
-  })
-}
-  loadFormPersonelDataForPrestataire(){
-    const { required, maxLength, minLength } = MyValidators;
-    this.profilePrestataire = this.formBuilder.group({
-      imagePrestataire: ["", [required]],
-      nom:["", [required, maxLength(20), minLength(2)]],
-      prenom: ["", [required, maxLength(20), minLength(2)]],
-      email: ["", [Validators.email,required]],
-      profession: ["", [required, maxLength(20), minLength(2)]],
+  loadFormPersonelDataForEsn() {
+    const {required, maxLength, minLength} = MyValidators;
+    this.profileEsn = this.formBuilder.group({
+      nonEsn: ["", [required, maxLength(50), minLength(2)]],
+      imageEsn: ["", [required]],
+      email: ["", [Validators.email, required]],
       rib: ["", [required, maxLength(20), minLength(20)]],
       iban: ["", [required, maxLength(6), minLength(6)]],
       lieu: ["", [required, maxLength(20), minLength(2)]],
     })
   }
 
-  loadForm(){
-    const { required, maxLength, minLength } = MyValidators;
+  loadFormPersonelDataForPrestataire() {
+    const {required, maxLength, minLength} = MyValidators;
+    this.profilePrestataire = this.formBuilder.group({
+      imagePrestataire: ["", [required]],
+      nom: ["", [required, maxLength(20), minLength(2)]],
+      prenom: ["", [required, maxLength(20), minLength(2)]],
+      email: ["", [Validators.email, required]],
+      profession: ["", [required, maxLength(50), minLength(2)]],
+      rib: ["", [required, maxLength(20), minLength(20)]],
+      iban: ["", [required, maxLength(6), minLength(6)]],
+      lieu: ["", [required, maxLength(20), minLength(2)]],
+    })
+  }
+
+  loadForm() {
+    const {required, maxLength, minLength} = MyValidators;
     this.education = this.formBuilder.group({
-      nomEcole: ["", [required, maxLength(12), minLength(6)]],
+      nomEcole: ["", [required, maxLength(12), minLength(2)]],
       typeDiplome: ["", [required]],
       dureeEcucation: ["", [required]],
     })
     this.formsEducation.push(this.education)
     this.experience = this.formBuilder.group({
-      nomSociete: ["", [required, maxLength(20), minLength(2)]],
+      nomSociete: ["", [required, maxLength(50), minLength(2)]],
       titrePoste: ["", [required]],
       dureeExperience: ["", [required]],
       descriptionExperience: ["", [required]],
     })
     this.formsExperience.push(this.experience)
   }
-
 
 
   compareFun = (o1: Option | string, o2: Option) => {
@@ -120,25 +123,25 @@ loadFormPersonelDataForEsn(){
 
   async submitProfilePrestataire() {
     delete this.profilePrestataire.value.imagePrestataire
-    this.prestataire=this.profilePrestataire.value
-    this.prestataire.education=new Array()
-    this.prestataire.experience=new Array()
-    this.formsEducation.forEach(form=>{
-      this.educationData.nomEcole=form.value.nomEcole
-      this.educationData.typeDiplome=form.value.typeDiplome.value
-      this.educationData.dateDebut=form.value.dureeEcucation[0]
-      this.educationData.dateFin=form.value.dureeEcucation[1]
+    this.prestataire = this.profilePrestataire.value
+    this.prestataire.education = new Array()
+    this.prestataire.experience = new Array()
+    this.formsEducation.forEach(form => {
+      this.educationData.nomEcole = form.value.nomEcole
+      this.educationData.typeDiplome = form.value.typeDiplome.value
+      this.educationData.dateDebut = form.value.dureeEcucation[0]
+      this.educationData.dateFin = form.value.dureeEcucation[1]
       this.prestataire.education.push(this.educationData)
-      this.educationData=new Education();
+      this.educationData = new Education();
     })
-    this.formsExperience.forEach(form=>{
-      this.experienceData.nomSociete=form.value.nomSociete
-      this.experienceData.titrePoste=form.value.titrePoste
-      this.experienceData.dateDebut=form.value.dureeExperience[0]
-      this.experienceData.dateFin=form.value.dureeExperience[1]
-      this.experienceData.descriptionPoste=form.value.descriptionExperience
+    this.formsExperience.forEach(form => {
+      this.experienceData.nomSociete = form.value.nomSociete
+      this.experienceData.titrePoste = form.value.titrePoste
+      this.experienceData.dateDebut = form.value.dureeExperience[0]
+      this.experienceData.dateFin = form.value.dureeExperience[1]
+      this.experienceData.descriptionPoste = form.value.descriptionExperience
       this.prestataire.experience.push(this.experienceData)
-      this.experienceData=new Experience();
+      this.experienceData = new Experience();
     })
     this.prestataire.usernamePrestataire = this.keycloakService.getUsernameAuthenticatedUser();
 
@@ -199,21 +202,21 @@ loadFormPersonelDataForEsn(){
 
   addSouSectionEducation() {
     this.nomberSousSectionEducation.push(1);
-    const { required, maxLength, minLength } = MyValidators;
+    const {required, maxLength, minLength} = MyValidators;
     this.formsEducation.push(
       this.formBuilder.group({
-      nomEcole: ["", [required, maxLength(12), minLength(6)]],
-      typeDiplome: ["", [required]],
-      dureeEcucation: ["", [required]],
-    }))
+        nomEcole: ["", [required, maxLength(50), minLength(2)]],
+        typeDiplome: ["", [required]],
+        dureeEcucation: ["", [required]],
+      }))
   }
 
   addSouSectionExperience() {
     this.nomberSousSectionExperience.push(1)
-    const { required, maxLength, minLength } = MyValidators;
+    const {required, maxLength, minLength} = MyValidators;
     this.formsExperience.push(
       this.formBuilder.group({
-        nomSociete: ["", [required, maxLength(20), minLength(2)]],
+        nomSociete: ["", [required, maxLength(50), minLength(2)]],
         titrePoste: ["", [required]],
         dureeExperience: ["", [required]],
         descriptionExperience: ["", [required]],
@@ -233,7 +236,7 @@ loadFormPersonelDataForEsn(){
   submitFormESN() {
     delete this.profileEsn.value.imageEsn
     console.log(this.profileEsn.value)
-    this.esn=this.profileEsn.value
+    this.esn = this.profileEsn.value
     console.log(this.esn)
     this.progress = 0;
     if (this.selectedFiles) {

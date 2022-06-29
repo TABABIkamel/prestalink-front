@@ -8,12 +8,12 @@
       <nz-input-number [(ngModel)]="profilesNumber" [nzMin]="1"  [nzStep]="1"></nz-input-number>
     </div>
     <nz-collapse>
-      <nz-collapse-panel  [nzHeader]="'Experience'" >
+      <nz-collapse-panel [nzActive]="true" [nzHeader]="'Experience'" >
         <i style="font-size: 15px; color: #08c;" class=" float-right"  (click)="addSouSectionExperience()" nz-icon nzType="plus-circle" nzTheme="outline"></i>
         <i style="font-size: 15px; color: #08c;" nz-icon nzType="minus-circle"  (click)="removeSouSectionExperience()" nzTheme="outline"></i>
         <div class="m-3" >
           <nz-collapse>
-            <nz-collapse-panel *ngFor="let p of nomberSousSectionExperience;let i = index" [nzHeader]="'Experience'">
+            <nz-collapse-panel [nzActive]="true" *ngFor="let p of nomberSousSectionExperience;let i = index" [nzHeader]="'Experience'">
               <form  [formGroup]="formsExperience[i]" class="form-group" >
 
                 <nz-form-item>
@@ -81,7 +81,7 @@
              style="font-size: 25px; color: #08c;cursor: pointer"></i>
         </div>
         <img *ngIf="profile.imageProfileValid" class="rounded-circle" alt="example" src="{{profile.imgProfile}}"/>
-        <img *ngIf="!profile.imageProfileValid" class="rounded-circle" alt="example"
+        <img *ngIf="!profile.imageProfileValid" class="rounded-circle" alt="photo de profile"
              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrrxsxZSpsfebkw8VLXe6R5j7mryT6PK7Pg&usqp=CAU'/>
       </ng-template>
 

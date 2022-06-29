@@ -66,7 +66,6 @@
             <a  routerLink="profils">trouver des profils</a>
           </li>
           <li *ngIf="keykcloak.isManager()"  nz-menu-item nzMatchRouter>
-
             <a  routerLink="startScrapping">lancer scrapping</a>
           </li>
 <!--          <li [nzDisabled] nz-menu-item nzMatchRouter>-->
@@ -90,6 +89,7 @@
           <app-nz-demo-dropdown-placement></app-nz-demo-dropdown-placement>
         </span>
         <span *ngIf="keykcloak.isCompleted" class="float-lg-right mr-5">
+
         <app-badge [notificationList]="notificationList" (reloadNotification)="reloadNotification($event)"></app-badge>
         </span>
       </div>
@@ -100,7 +100,7 @@
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <nz-footer class="ml-auto mr-auto">©2022 Implement By TABABI Kamel</nz-footer>
+    <nz-footer class="ml-auto mr-auto">©2022 Implemented By TABABI Kamel</nz-footer>
   </nz-layout>
 
 </nz-layout>

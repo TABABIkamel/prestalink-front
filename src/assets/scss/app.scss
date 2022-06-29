@@ -14,7 +14,7 @@
 
 /*Layout*/
 @import 'components/layout/breakpoint';
-@import 'components/layout/grid';
+/***@import 'components/layout/grid';***/
 
 /*Navigation*/
 @import 'components/navigation/_affix';
@@ -95,13 +95,13 @@
 /*****************/
 /*** Plugins ****/
 /***************/
-@import 'plugins/chartist.scss';
+/***@import 'plugins/chartist.scss';***/
 @import 'plugins/quill.scss';
 
 /*******************/
 /*** Utilities ****/
 /*****************/
-@import 'utilities/utilities-bs.scss';
+/**@import 'utilities/utilities-bs.scss';***/
 @import 'utilities/utilities-enlink.scss';
 
 

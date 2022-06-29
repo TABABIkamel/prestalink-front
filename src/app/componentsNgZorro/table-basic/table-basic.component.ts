@@ -63,16 +63,16 @@ export class TableBasicComponent {
       nomSocieteClient: ["", [required, maxLength(12), minLength(6)]],
       capitaleSocieteClient: ["", [required]],
       // adresseMail: [this.client.adresseMail, Validators.compose([Validators.required, Validators.email])],
-      lieuSiegeClient: ["", [Validators.required]],
-      numeroRegitreCommerceClient: ["", [Validators.required]],
-      nomRepresentantSocieteClient: ["", [Validators.required,maxLength(30), minLength(2)]],
-      nomPrestataire: ["", [Validators.required,maxLength(30), minLength(2)]],
-      prenomPrestataire: ["", [Validators.required,maxLength(30), minLength(2)]],
-      lieuPrestataire: ["", [Validators.required]],
-      cin: ["", [Validators.required]],
-      preambule: ["", [Validators.required]],
-      prixTotaleMission: ["", [Validators.required]],
-      penalisationParJour: ["",  [Validators.required]]
+      lieuSiegeClient: ["", [required]],
+      numeroRegitreCommerceClient: ["", [required]],
+      nomRepresentantSocieteClient: ["", [required,maxLength(30), minLength(2)]],
+      nomPrestataire: ["", [required,maxLength(30), minLength(2)]],
+      prenomPrestataire: ["", [required,maxLength(30), minLength(2)]],
+      lieuPrestataire: ["", [required]],
+      cin: ["", [required]],
+      preambule: ["", [required]],
+      prixTotaleMission: ["", [required]],
+      penalisationParJour: ["",  [required]]
     });
   }
 

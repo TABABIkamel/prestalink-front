@@ -36,7 +36,7 @@ export class KeycloakService {
     }
   }
   functionCalledWhenUserIsNotEsn(err:any){
-    this.http.get<Prestataire>(`http://localhost:8089/api/ao/checkIfProfilePrestataireCompleted/${this.kc.tokenParsed?.preferred_username}`,this.httpOptions)
+    this.http.get<Prestataire>(`http://localhost:8765/ao-service/api/ao/checkIfProfilePrestataireCompleted/${this.kc.tokenParsed?.preferred_username}`,this.httpOptions)
       .subscribe(res=>{
         this.functionCalledWhenUserIsPrestataire(res)
       },()=>{
@@ -62,7 +62,7 @@ export class KeycloakService {
     //console.log(this.kc.token);
     //console.log('token after')
 
-      this.http.get<Esn>(`http://localhost:8089/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`, this.httpOptions)
+      this.http.get<Esn>(`http://localhost:8765/ao-service/api/ao/checkIfProfileEsnCompleted/${this.kc.tokenParsed?.preferred_username}`, this.httpOptions)
         .subscribe((res) => {
           this.functionCalledWhenUserIsEsn(res)
         }, (err) => {

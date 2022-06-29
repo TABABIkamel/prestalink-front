@@ -13,7 +13,6 @@ export class InterceptorService implements HttpInterceptor{
   constructor(private keycloakService:KeycloakService,private httpRequestTrackingService: HttpRequestService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.httpRequestTrackingService.requestStarted();
-    console.log("interceptor is here !!!")
     if(!this.keycloakService.kc.authenticated)
       return next.handle(req)
     let request=req.clone({
@@ -28,7 +27,7 @@ export class InterceptorService implements HttpInterceptor{
       }),finalize(() => {
         this.httpRequestTrackingService.requestFinished();
       })
-    );;
+    );
   }
 
 

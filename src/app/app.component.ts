@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
   }
   async on(){
     await this.onLogin()
-    console.log("tesr")
   }
 
   async ngOnInit(): Promise<void> {
@@ -37,12 +36,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.startClicked()
     }, 5000)
-    //this.connectClicked()
-    //this.startClicked()
-    // this.spinner.show().then().catch();
-    // setTimeout(()=>{
-    //   this.spinner.hide().then().catch()
-    // },2000)
   }
 
 
@@ -57,8 +50,6 @@ export class AppComponent implements OnInit {
 
         this.client.subscribe('/user/notification/item' + this.keykcloak.getUsernameAuthenticatedUser(), (response) => {
           const text: string = response.body;
-          console.log('Got ' + text);
-          //this.notificationContent=text
           this.notification.create("info", "Notification", text)
           this.notifications.push(text);
         });
@@ -78,13 +69,11 @@ export class AppComponent implements OnInit {
   disconnectClicked() {
     if (this.client && this.client.connected) {
       this.client.deactivate();
-      //this.client = null;
       console.info("disconnected :-/");
     }
   }
 
   startClicked() {
-    console.log('in start listening')
     if (this.client && this.client.connected) {
       this.client.publish({destination: '/swns/start'});
     }
@@ -98,8 +87,14 @@ export class AppComponent implements OnInit {
 getUserNotifications(username:string){
   this.notificationService.getAllNotificationByUsername(username)
     .subscribe(res=>{
-      this.notificationList=res
-      console.log(res)})
+
+      for(let i=0;i<res.length;i++){
+
+        if(res[i].contentDto.toString().includes('null')){
+              res.splice(i,1)
+        }
+      }
+      this.notificationList=res})
 }
   reloadNotification(reload:boolean) {
     if(reload){
