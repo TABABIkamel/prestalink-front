@@ -161,7 +161,7 @@ export class CompleteProfileComponent implements OnInit {
                   this.route.navigateByUrl('appeloffre')
                   window.location.reload()
                 }),
-            error => this.toastr.error('OUPS', 'you have already completed your profile'))
+            error => {console.log(error);this.toastr.error('OUPS', 'you have already completed your profile')})
       }
       console.log(this.prestataire)
     }
